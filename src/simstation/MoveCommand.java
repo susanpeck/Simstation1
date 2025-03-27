@@ -8,6 +8,9 @@ SimStation Group 1 CS151 Spring 2025
  */
 
 public class MoveCommand extends Command {
+    // this is code copied from MineField
+    // needs to be changed to logic for SimStation
+
     private int rowChange;
     private int colChange;
 
@@ -19,23 +22,26 @@ public class MoveCommand extends Command {
 
     public void execute() throws Exception {
         if (!(model instanceof SimstationField)) {
-            throw new Exception("Model must be a MineField.");
+            throw new Exception("Model must be a Simstation.");
         }
         SimstationField simstationField = (SimstationField) model;
 
         try {
             // game has not been won
-            if(simstationField.getGameWon()){
-                Utilities.inform("You won! Start a new game.");
+            if(1 > 0){
+                //something
             }
             // game is not over
-            else if(simstationField.getGameOver()){
-                Utilities.inform("The game is over. Start a new game.");
+            else if( 2 < 5){
+                // something
             }
             else {
+                // call the method in the model
                 simstationField.move(colChange, rowChange);
             }
         }
+
+        // catch and throw exceptions to the AppPanel ?
         catch (Exception e) {
             Utilities.error(e.getMessage());
         }
