@@ -10,15 +10,15 @@ import mvc.View;
 
 import java.awt.*;
 
-public class SimstationView extends View{
-    private final SimstationField mf;
+public class WorldView extends View{
+    private final World mf;
 
-    public SimstationView(Model m){
+    public WorldView(Model m){
         super(m);
-        if (model == null || !(model instanceof SimstationField)) {
+        if (model == null || !(model instanceof World)) {
             throw new IllegalStateException("Model must be a Simstation");
         }
-        this.mf = (SimstationField) model;
+        this.mf = (World) model;
         this.setBackground(Color.GRAY);
         initView();
     }
@@ -37,5 +37,13 @@ public class SimstationView extends View{
         super.setModel(newModel);
         initView();
         repaint();
+    }
+
+    public void paintComponent(Graphics gc){
+
+    }
+
+    public void drawAgent(Agent a, Graphics gc){
+
     }
 }

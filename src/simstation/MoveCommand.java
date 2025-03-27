@@ -21,10 +21,10 @@ public class MoveCommand extends Command {
     }
 
     public void execute() throws Exception {
-        if (!(model instanceof SimstationField)) {
+        if (!(model instanceof World)) {
             throw new Exception("Model must be a Simstation.");
         }
-        SimstationField simstationField = (SimstationField) model;
+        World simstationField = (World) model;
 
         try {
             // game has not been won

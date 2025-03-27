@@ -9,7 +9,7 @@ Susan Peck, Evalynna Ong, Jiajun Zheng
 SimStation Group 1 CS151 Spring 2025
  */
 
-public class SimstationPanel extends AppPanel {
+public class WorldPanel extends AppPanel {
 
     // create the buttons to add to the control panel
     private JButton start;
@@ -25,7 +25,7 @@ public class SimstationPanel extends AppPanel {
     }
 
     // constructor
-    public SimstationPanel(AppFactory factory) {
+    public WorldPanel(AppFactory factory) {
         super(factory);
 
         // initialize buttons with names
@@ -65,8 +65,8 @@ public class SimstationPanel extends AppPanel {
     }
 
     public static void main(String[] Args){
-        AppFactory factory = new SimstationFactory();
-        AppPanel panel = new SimstationPanel(factory);
+        AppFactory factory = new WorldFactory();
+        AppPanel panel = new WorldPanel(factory);
         panel.display();
     }
 }

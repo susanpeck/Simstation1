@@ -7,14 +7,14 @@ SimStation Group 1 CS151 Spring 2025
 
 import mvc.*;
 
-public class SimstationFactory implements AppFactory {
+public class WorldFactory implements AppFactory {
 
     public Model makeModel() {
-        return new SimstationField();
+        return new World();
     }
 
     public View makeView(Model m) {
-        return new SimstationView((SimstationField) m);
+        return new WorldView((World) m);
     }
 
     public String getTitle() {
