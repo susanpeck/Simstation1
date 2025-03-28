@@ -12,14 +12,14 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public class WorldView extends View{
-    private final World mf;
+    private final World worldModel;
 
     public WorldView(Model m){
         super(m);
         if (model == null || !(model instanceof World)) {
             throw new IllegalStateException("Model must be a Simstation");
         }
-        this.mf = (World) model;
+        this.worldModel = (World) model;
         this.setBackground(Color.GRAY);
         initView();
     }
@@ -41,10 +41,10 @@ public class WorldView extends View{
     }
 
     public void paintComponent(Graphics gc){
-        for(Agent a : ){
+        //paint all the agents in the World
+        for(Agent a : worldModel.getAgents()){
             drawAgent(a, gc);
         }
-
     }
 
     public void drawAgent(Agent a, Graphics gc){

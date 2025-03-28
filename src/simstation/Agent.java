@@ -7,16 +7,26 @@ public abstract class Agent implements Runnable, Serializable {
     An agent is an active object. It runs in its own thread (myThread).
      */
 
+    // which variables should be "protected" versus "private"?
+
     // location of the agent is xc, yc in the World
     private int xc;
     private int yc;
     private String agentName;
+    private Boolean paused;
+    private Boolean stopped;
 
-    private Boolean paused = false;
-    private Boolean stopped = false;
-
+    // what is a thread again? do we need something with synchronized?
     private Thread myThread;
-    private World world;
+    protected World world; // is the World the "manager"?
+
+    // agent default constructor
+    public Agent(String name){
+        agentName = name;
+        paused = false;
+        stopped = false;
+        myThread = null;
+    }
 
     public int getXc(){
         // should be between 0 and world SIZE
@@ -32,28 +42,54 @@ public abstract class Agent implements Runnable, Serializable {
         return agentName;
     }
 
-    public void start(){
+    public synchronized void start(){
 
     }
 
-    public void stop(){
-
+    public synchronized void stop(){
+        stopped = true;
     }
 
-    public void resume(){
-
+    public synchronized void resume(){
+        notify();
     }
 
-
-    public void update(){
-        //this method is italic in the UML diagram
-        // abstract method
-
+    public synchronized boolean isStopped(){
+        return stopped;
     }
+
+    public synchronized boolean isPaused(){
+        return paused;
+    }
+
+    private synchronized void checkPaused(){
+        try{
+            while(!stopped && paused){
+                wait();
+                paused = false;
+            }
+        }
+        catch (InterruptedException e){
+            world.println(e.getMessage());
+        }
+    }
+    
+    public abstract void update();
 
     public void run(){
         //The run method repeatedly calls the abstract update method.
-        update();
+        myThread = Thread.currentThread();
+        while(!isStopped()){
+            try {
+                update();
+                Thread.sleep(1000);
+                checkPaused();
+            }
+            catch(InterruptedException e){
+                world.println(e.getMessage());
+            }
+        }
+        world.stdout.println(name + " stopped");
     }
 
 }

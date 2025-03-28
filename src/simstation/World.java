@@ -25,36 +25,43 @@ public class World extends Model {
 
     // default constructor
     public World() {
-
+        agents = new ArrayList<Agent>();
+        observer = new ObserverAgent();
     }
 
     // specialized constructor
-    public World(int size, int percent) {
-
+    public World(ArrayList<Agent> newAgentArray, ObserverAgent newObserver, int time, int numAlive) {
+        agents = newAgentArray;
+        observer = newObserver;
+        clock = time;
+        alive = numAlive;
     }
 
     public void addAgent(Agent a){
+        agents.add(a);
+    }
 
+    // do we need a removeAgent(Agent a) method?
+
+    public ArrayList<Agent> getAgents(){
+        return agents;
     }
 
     public void startAgent(){
+        // not sure if this needs to call changed, or just the start method which then calls changed?
         changed();
-
     }
 
     public void stopAgent(){
         changed();
-
     }
 
     public void pauseAgent(){
         changed();
-
     }
 
     public void resumeAgent(){
         changed();
-
     }
 
     public void populate(){

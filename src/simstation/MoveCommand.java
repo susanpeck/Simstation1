@@ -37,7 +37,7 @@ public class MoveCommand extends Command {
             }
             else {
                 // call the method in the model
-                simstationField.move(colChange, rowChange);
+                //simstationField.move(colChange, rowChange);
             }
         }
 
