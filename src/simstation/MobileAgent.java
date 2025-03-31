@@ -47,8 +47,6 @@ public abstract class MobileAgent extends Agent {
             // if mobile agents move, then we need to call changed() method
             world.changed();
         }
-
-
     }
 
     public void turn(String direction){

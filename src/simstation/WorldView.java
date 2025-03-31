@@ -35,7 +35,7 @@ public class WorldView extends View{
 
     public void setModel(Model newModel) {
         super.setModel(newModel);
-        initView();
+        //initView();
         repaint();
     }
 

@@ -1,12 +1,9 @@
 package simstation;
 
-import mvc.AppFactory;
-import mvc.AppPanel;
-import mvc.Model;
+import mvc.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
 
 /*
 Susan Peck, Evalynna Ong, Jiajun Zheng
@@ -59,8 +56,9 @@ public class WorldPanel extends AppPanel {
         controlPanel.setLayout(new BorderLayout());
         controlPanel.setBackground(Color.PINK);
 
-        // add the buttons to the control panel in order of location (start top left, across the row, etc.)
+        // add the buttons to the thread panel in order of location (start top left, across the row, etc.)
         threadPanel.setLayout(new GridLayout(1,5));
+        threadPanel.setBackground(Color.DARK_GRAY);
         threadPanel.add(start);
         threadPanel.add(pause);
         threadPanel.add(resume);
@@ -80,9 +78,9 @@ public class WorldPanel extends AppPanel {
     public void setModel(Model newModel) {
         super.setModel(newModel);
         World w = (World) newModel;
-        Iterator<Agent> it = w.iterator();
-        while(it.hasNext()){
-            Thread t = new Thread(it.next());
+
+        for(Agent a : w.getAgents()){
+            Thread t = new Thread(a);
             t.start();
         }
     }

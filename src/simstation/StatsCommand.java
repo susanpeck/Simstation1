@@ -22,7 +22,7 @@ public class StatsCommand extends Command {
         try {
             // call the method in the model
             // is this the correct method?
-            worldModel.getStatus();
+            Utilities.inform(worldModel.getStatus());
         }
 
         // catch and throw exceptions to the AppPanel

@@ -4,7 +4,6 @@ import mvc.Model;
 import mvc.Utilities;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /*
 Susan Peck, Evalynna Ong, Jiajun Zheng
@@ -82,7 +81,7 @@ public class World extends Model {
 
     public String getStatus(){
         // is this what is called when Stats button is pressed?
-        return "";
+        return "#agents = " + agents.size() + "\n" + "#living = " + alive + "\n" + "#clock = " + clock;
     }
 
     public void updateStatistics(){
@@ -122,14 +121,6 @@ Agent partner = world.getNeighbor(this, 10); // try to find a random agent (not 
 
     public int getSize(){
         return SIZE;
-    }
-
-    public Iterator<Agent> iterator(){
-        return new AgentIterator();
-    }
-
-    private class AgentIterator(){
-
     }
 
 }

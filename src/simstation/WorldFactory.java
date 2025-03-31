@@ -34,24 +34,20 @@ public class WorldFactory implements AppFactory {
     }
 
     public Command makeEditCommand(Model model, String type, Object source) {
-        // in minefield we had a single command class
-        // we might need more than one, move and stats?
-        // or five individual?
-
         if(type.equals("Start")) {
-            return new PauseCommand(model);
+            return new StartCommand(model);
         }
         else if(type.equals("Pause")) {
             return new PauseCommand(model);
         }
         else if(type.equals("Resume")) {
-            return new PauseCommand(model);
+            return new ResumeCommand(model);
         }
         else if(type.equals("Stop")) {
-            return new PauseCommand(model);
+            return new StopCommand(model);
         }
         else if(type.equals("Stats")) {
-            return new PauseCommand(model);
+            return new StatsCommand(model);
         }
         return null;
     }
