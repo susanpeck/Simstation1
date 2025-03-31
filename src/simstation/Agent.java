@@ -1,5 +1,6 @@
 package simstation;
 
+import mvc.*;
 import java.io.Serializable;
 
 public abstract class Agent implements Runnable, Serializable {
@@ -8,16 +9,18 @@ public abstract class Agent implements Runnable, Serializable {
      */
 
     // which variables should be "protected" versus "private"?
+    // some of this is printing to a Console? copied from agentLab example, not needed?
+
 
     // location of the agent is xc, yc in the World
-    private int xc;
-    private int yc;
-    private String agentName;
+    protected int xc;
+    protected int yc;
+    protected String agentName;
     private Boolean paused;
     private Boolean stopped;
 
     // what is a thread again? do we need something with synchronized?
-    private Thread myThread;
+    protected Thread myThread;
     protected World world; // is the World the "manager"?
 
     // agent default constructor
@@ -26,6 +29,28 @@ public abstract class Agent implements Runnable, Serializable {
         paused = false;
         stopped = false;
         myThread = null;
+    }
+
+    public void setWorld(World inputWorld){
+        world = inputWorld;
+    }
+
+    public String getAgentName(){
+        return agentName;
+    }
+
+    public synchronized String toString(){
+        String result = agentName;
+        if(stopped) {
+            result += " (stopped)";
+        }
+        else if(paused){
+            result += " (paused)";
+        }
+        else{
+            result += " (running)";
+        }
+        return result;
     }
 
     public int getXc(){
@@ -38,30 +63,32 @@ public abstract class Agent implements Runnable, Serializable {
         // if beyond the border, wraps around
         return yc;
     }
-    public String getAgentName(){
-        return agentName;
-    }
 
+    // start() is in the UML diagram but also part of thread? confused
     public synchronized void start(){
-
+        // not sure what goes here
     }
 
+    //thread stuff:
     public synchronized void stop(){
         stopped = true;
     }
-
-    public synchronized void resume(){
-        notify();
-    }
-
     public synchronized boolean isStopped(){
         return stopped;
     }
-
+    public synchronized void resume(){
+        //what needs to go in here?
+        notify();
+    }
+    public synchronized void pause(){
+        paused = true;
+        notify();
+    }
     public synchronized boolean isPaused(){
         return paused;
     }
 
+    // wait for notification if not stopped and yes paused
     private synchronized void checkPaused(){
         try{
             while(!stopped && paused){
@@ -70,10 +97,22 @@ public abstract class Agent implements Runnable, Serializable {
             }
         }
         catch (InterruptedException e){
-            world.println(e.getMessage());
+            Utilities.inform(e.getMessage());
         }
     }
-    
+
+    // wait for me to die:
+    private synchronized void join(){
+        try {
+            if (myThread != null) {
+                myThread.join();
+            }
+        }
+        catch (InterruptedException e){
+            Utilities.inform(e.getMessage());
+        }
+    }
+
     public abstract void update();
 
     public void run(){
@@ -86,10 +125,9 @@ public abstract class Agent implements Runnable, Serializable {
                 checkPaused();
             }
             catch(InterruptedException e){
-                world.println(e.getMessage());
+                Utilities.inform(e.getMessage());
             }
         }
-        world.stdout.println(name + " stopped");
     }
 
 }

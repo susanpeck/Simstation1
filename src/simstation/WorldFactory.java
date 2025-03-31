@@ -39,19 +39,19 @@ public class WorldFactory implements AppFactory {
         // or five individual?
 
         if(type.equals("Start")) {
-            return new MoveCommand(model, 0, -1);
+            return new PauseCommand(model);
         }
         else if(type.equals("Pause")) {
-            return new MoveCommand(model, 0, 1);
+            return new PauseCommand(model);
         }
         else if(type.equals("Resume")) {
-            return new MoveCommand(model, -1, 0);
+            return new PauseCommand(model);
         }
         else if(type.equals("Stop")) {
-            return new MoveCommand(model, 1, 0);
+            return new PauseCommand(model);
         }
         else if(type.equals("Stats")) {
-            return new MoveCommand(model, 1, -1);
+            return new PauseCommand(model);
         }
         return null;
     }

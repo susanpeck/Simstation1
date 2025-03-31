@@ -26,7 +26,7 @@ public class World extends Model {
     // default constructor
     public World() {
         agents = new ArrayList<Agent>();
-        observer = new ObserverAgent();
+        observer = new ObserverAgent("The Observer");
     }
 
     // specialized constructor
@@ -47,31 +47,39 @@ public class World extends Model {
         return agents;
     }
 
-    public void startAgent(){
+    public void startAgents(){
         // not sure if this needs to call changed, or just the start method which then calls changed?
-        changed();
+        populate();
+        for(Agent a : agents){
+            a.start();
+        }
     }
 
-    public void stopAgent(){
-        changed();
+    public void stopAgents(){
+        for(Agent a : agents){
+            a.stop();
+        }
     }
 
-    public void pauseAgent(){
-        changed();
+    public void pauseAgents(){
+        for(Agent a : agents){
+            a.pause();
+        }
     }
 
-    public void resumeAgent(){
-        changed();
+    public void resumeAgents(){
+        for(Agent a : agents){
+            a.resume();
+        }
     }
 
     public void populate(){
-        // why is this method italic in the UML diagram?
-        // Populate is an empty method that will be specified
-        // in subclasses. It's called by startAgents and
-        // populates the simulation.
+        // Populate is an empty method that will be specified in subclasses.
+        // It's called by startAgents and populates the simulation
     }
 
     public String getStatus(){
+        // is this what is called when Stats button is pressed?
         return "";
     }
 
@@ -87,6 +95,10 @@ public class World extends Model {
 
     public Agent getNeighbor(Agent caller, int radius){
         return null;
+    }
+
+    public int getSize(){
+        return SIZE;
     }
 
 }

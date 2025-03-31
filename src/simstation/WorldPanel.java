@@ -1,8 +1,12 @@
 package simstation;
 
-import mvc.*;
+import mvc.AppFactory;
+import mvc.AppPanel;
+import mvc.Model;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Iterator;
 
 /*
 Susan Peck, Evalynna Ong, Jiajun Zheng
@@ -10,8 +14,17 @@ SimStation Group 1 CS151 Spring 2025
  */
 
 public class WorldPanel extends AppPanel {
+    /*
+        WorldPanel creates a thread control subpanel (threadPanel) and
+        adds it to the northern region of the control panel
+        (which is an AppPanel field.) Subclasses can add additional
+        controls to the other regions pof the control panel.
+    */
 
-    // create the buttons to add to the control panel
+    // create the subpanel for the thread buttons
+    JPanel threadPanel = new JPanel();
+
+    // create the buttons to add to the thread part of the control panel
     private JButton start;
     private JButton pause;
     private JButton resume;
@@ -43,25 +56,32 @@ public class WorldPanel extends AppPanel {
         stats.addActionListener(this);
 
         // set the customized control panel layout
-        controlPanel.setLayout(new GridLayout(3,3)); // CHANGE THIS
+        controlPanel.setLayout(new BorderLayout());
         controlPanel.setBackground(Color.PINK);
 
         // add the buttons to the control panel in order of location (start top left, across the row, etc.)
-        Panel p = new Panel();
-        p.add(start);
-        p.add(pause);
-        p.add(resume);
-        p.add(stop);
-        p.add(stats);
-        controlPanel.add(p);
+        threadPanel.setLayout(new GridLayout(1,5));
+        threadPanel.add(start);
+        threadPanel.add(pause);
+        threadPanel.add(resume);
+        threadPanel.add(stop);
+        threadPanel.add(stats);
+
+        // add the thread panel to the top of the control panel
+        controlPanel.add(threadPanel, BorderLayout.NORTH);
+
+        // other extensions will add to the control panel in other regions
     }
 
-    @Override
+    // copied code below from assignment descriptions
     public void setModel(Model newModel) {
         super.setModel(newModel);
-        this.remove(view);
-        view = factory.makeView(model);
-        this.add(view);
+        World w = (World) newModel;
+        Iterator<Agent> it = w.iterator();
+        while(it.hasNext()){
+            Thread t = new Thread(it.next());
+            t.start();
+        }
     }
 
     public static void main(String[] Args){

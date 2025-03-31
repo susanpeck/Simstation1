@@ -1,16 +1,13 @@
 package simstation;
 
-public abstract class MobileAgent {
-    // this class is italic in the UML diagram -> so abstract?
-
-
+public abstract class MobileAgent extends Agent {
 
     private Heading heading; // a heading can be N, E, S, W, changed used turn
 
     // default constructor
-    public MobileAgent(){
-        super();
-        heading = new Heading();
+    public MobileAgent(String name){
+        super(name);
+        heading = Heading.random();
     }
     public void move(int steps){
         /*
@@ -19,35 +16,67 @@ public abstract class MobileAgent {
         if it's location goes beyond the border.
          */
 
+        if(heading == Heading.NORTH){
+            yc = yc - steps;
+        }
+        else if(heading == Heading.SOUTH){
+            yc = yc + steps;
+        }
+        else if(heading == Heading.WEST){
+            xc = xc - steps;
+        }
+        else if(heading == Heading.EAST){
+            xc = xc + steps;
+        }
 
+
+        // world coordinates wrap around
+        if(yc > world.getSize()){
+            yc = world.getSize() - yc;
+        }
+        if(xc > world.getSize()){
+            xc = world.getSize() - xc;
+        }
+
+        // if mobile agents move, then we need to call changed() method
+        world.changed();
     }
 
-    public void turn(Heading dir){
-        //
+    public void turn(String direction){
+        //guessing that we can only turn left or right?
+        if(direction.equals("right")){
+            if(heading == Heading.NORTH){
+                heading = Heading.EAST;
+            }
+            else if(heading == Heading.EAST){
+                heading = Heading.SOUTH;
+            }
+            else if(heading == Heading.SOUTH){
+                heading = Heading.WEST;
+            }
+            else if(heading == Heading.WEST){
+                heading = Heading.NORTH;
+            }
+            else {
+                // what goes here?
+            }
+        }
+        else if (direction.equals("left")){
+            if(heading == Heading.NORTH){
+                heading = Heading.WEST;
+            }
+            else if(heading == Heading.EAST){
+                heading = Heading.NORTH;
+            }
+            else if(heading == Heading.SOUTH){
+                heading = Heading.EAST;
+            }
+            else if(heading == Heading.WEST){
+                heading = Heading.SOUTH;
+            }
+            else {
+                // what goes here?
+            }
+        }
     }
-
-    //subclass Heading?
-    public class Heading{
-        //possible values N,S,E,W
-        private String headingValue;
-
-        //default constructor, heading is North
-        public Heading(){
-            headingValue = "N";
-        }
-
-        public Heading(String input){
-            headingValue = input;
-        }
-
-        public String getHeadingValue(){
-            return headingValue;
-        }
-
-        public void setHeadingValue(String input){
-            headingValue = input;
-        }
-    }
-
-
 }
