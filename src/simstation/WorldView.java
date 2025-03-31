@@ -17,7 +17,7 @@ public class WorldView extends View{
     public WorldView(Model m){
         super(m);
         if (model == null || !(model instanceof World)) {
-            throw new IllegalStateException("Model must be a Simstation");
+            throw new IllegalStateException("Model must be a World");
         }
         this.worldModel = (World) model;
         this.setBackground(Color.GRAY);
@@ -30,7 +30,6 @@ public class WorldView extends View{
 
     @Override
     public void update(){
-
         repaint();
     }
 

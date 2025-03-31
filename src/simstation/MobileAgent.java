@@ -9,6 +9,7 @@ public abstract class MobileAgent extends Agent {
         super(name);
         heading = Heading.random();
     }
+
     public void move(int steps){
         /*
         A mobile agent's location can be changed by calling its
@@ -16,30 +17,38 @@ public abstract class MobileAgent extends Agent {
         if it's location goes beyond the border.
          */
 
-        if(heading == Heading.NORTH){
-            yc = yc - steps;
-        }
-        else if(heading == Heading.SOUTH){
-            yc = yc + steps;
-        }
-        else if(heading == Heading.WEST){
-            xc = xc - steps;
-        }
-        else if(heading == Heading.EAST){
-            xc = xc + steps;
+        /*
+        "In my version an agent moves one step at a time for n steps, calling world.changed after each step"
+        -professor pearce
+         */
+
+        for(int i = 1; i <= steps; i++){
+            if(heading == Heading.NORTH){
+                yc = yc - 1;
+            }
+            else if(heading == Heading.SOUTH){
+                yc = yc + 1;
+            }
+            else if(heading == Heading.WEST){
+                xc = xc - 1;
+            }
+            else if(heading == Heading.EAST){
+                xc = xc + 1;
+            }
+
+            // world coordinates wrap around
+            if(yc > world.getSize()){
+                yc = world.getSize() - yc;
+            }
+            if(xc > world.getSize()){
+                xc = world.getSize() - xc;
+            }
+
+            // if mobile agents move, then we need to call changed() method
+            world.changed();
         }
 
 
-        // world coordinates wrap around
-        if(yc > world.getSize()){
-            yc = world.getSize() - yc;
-        }
-        if(xc > world.getSize()){
-            xc = world.getSize() - xc;
-        }
-
-        // if mobile agents move, then we need to call changed() method
-        world.changed();
     }
 
     public void turn(String direction){

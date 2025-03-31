@@ -1,8 +1,10 @@
 package simstation;
 
 import mvc.Model;
+import mvc.Utilities;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /*
 Susan Peck, Evalynna Ong, Jiajun Zheng
@@ -14,7 +16,7 @@ public class World extends Model {
     World is the base class for all agent environments.
     It provides a list of agents. It's startAgents, stopAgents,
     pauseAgents, and resumeAgents methods call the corresponding
-    start, stop, suspend, and resume methods of its agents.
+    start, stop, pause, and resume methods of its agents.
      */
 
     private static final int SIZE = 500;
@@ -93,12 +95,41 @@ public class World extends Model {
         alive++;
     }
 
+
+    /*
+    The main service the simulation provides to agents is getNeighbor. An agent seeking a random nearby partner to interact with might call:
+Agent partner = world.getNeighbor(this, 10); // try to find a random agent (not me) within 10 steps
+//An efficient implementation of getNeighbor picks a random location in the agents list. Starting at this location it visits each agent in order (wrapping around to the start if necessary) until it either finds a suitable neighbor or until it loops back to the starting point and returns null.
+     */
+
     public Agent getNeighbor(Agent caller, int radius){
-        return null;
+        int randomLocation = Utilities.rng.nextInt(agents.size() - 1);
+        Agent neighbor = agents.get(randomLocation);
+
+        // number of steps from caller agent to random agent in list
+        int distance = Math.abs(caller.getXc() - neighbor.getXc()) + Math.abs(caller.getYc() - neighbor.getYc());
+
+        while(distance > radius){
+            randomLocation++; // index of next agent in list
+            if(randomLocation > agents.size() - 1){
+                randomLocation = randomLocation - agents.size() + 1; //wrap to beginning of list
+            }
+            neighbor = agents.get(randomLocation);
+            distance = Math.abs(caller.getXc() - neighbor.getXc()) + Math.abs(caller.getYc() - neighbor.getYc());
+        }
+        return neighbor;
     }
 
     public int getSize(){
         return SIZE;
+    }
+
+    public Iterator<Agent> iterator(){
+        return new AgentIterator();
+    }
+
+    private class AgentIterator(){
+
     }
 
 }

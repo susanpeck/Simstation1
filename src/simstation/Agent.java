@@ -11,7 +11,6 @@ public abstract class Agent implements Runnable, Serializable {
     // which variables should be "protected" versus "private"?
     // some of this is printing to a Console? copied from agentLab example, not needed?
 
-
     // location of the agent is xc, yc in the World
     protected int xc;
     protected int yc;
@@ -20,7 +19,12 @@ public abstract class Agent implements Runnable, Serializable {
     private Boolean stopped;
 
     // what is a thread again? do we need something with synchronized?
-    protected Thread myThread;
+
+    /*
+    Threads are not serializable, so the myThread field in the Agent class needs to be declared transient:
+     */
+
+    transient protected Thread myThread;
     protected World world; // is the World the "manager"?
 
     // agent default constructor

@@ -74,6 +74,9 @@ public class WorldPanel extends AppPanel {
     }
 
     // copied code below from assignment descriptions
+    // do we need an iterator?
+    // could we just use a for loop for the agents arraylist?
+    // or is it better to be more generic?
     public void setModel(Model newModel) {
         super.setModel(newModel);
         World w = (World) newModel;
