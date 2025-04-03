@@ -2,13 +2,14 @@ package simstation;
 
 public abstract class MobileAgent extends Agent {
 
-    private Heading heading; // a heading can be N, E, S, W, changed used turn
+    protected Heading heading; // a heading can be N, E, S, W, changed used turn
 
     // default constructor
-    public MobileAgent(String name){
-        super(name);
+    public MobileAgent(){
+        super("Mobile Agent");
         heading = Heading.random();
     }
+
 
     public void move(int steps){
         /*
@@ -85,5 +86,11 @@ public abstract class MobileAgent extends Agent {
                 // what goes here?
             }
         }
+    }
+
+    @Override
+    public void update() {
+        System.out.println(getAgentName() + "is updating.");
+        move(1);
     }
 }

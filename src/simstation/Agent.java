@@ -1,7 +1,10 @@
 package simstation;
 
-import mvc.*;
+import mvc.Utilities;
+
 import java.io.Serializable;
+
+import static mvc.Utilities.rng;
 
 public abstract class Agent implements Runnable, Serializable {
     /*
@@ -25,18 +28,23 @@ public abstract class Agent implements Runnable, Serializable {
      */
 
     transient protected Thread myThread;
-    protected World world; // is the World the "manager"?
+    protected World world; // is the World the "manager"?, yes i think so
 
     // agent default constructor
     public Agent(String name){
+
         agentName = name;
         paused = false;
         stopped = false;
         myThread = null;
+
     }
 
     public void setWorld(World inputWorld){
         world = inputWorld;
+
+        xc = rng.nextInt(world.getSize());
+        yc = rng.nextInt(world.getSize());
     }
 
     public String getAgentName(){
@@ -70,7 +78,14 @@ public abstract class Agent implements Runnable, Serializable {
 
     // start() is in the UML diagram but also part of thread? confused
     public synchronized void start(){
-        // not sure what goes here
+        if(myThread == null) {
+            myThread = new Thread(this);
+            myThread.start();
+            //System.out.println(getAgentName() + "thread started.");
+        }
+        paused = false;
+        stopped = false;
+
     }
 
     //thread stuff:
@@ -81,7 +96,7 @@ public abstract class Agent implements Runnable, Serializable {
         return stopped;
     }
     public synchronized void resume(){
-        //what needs to go in here?
+        //what needs to go in here? see: https://www.cs.sjsu.edu/faculty/pearce/modules/lectures/ood4/threads/agentLab/src/Agent.java
         notify();
     }
     public synchronized void pause(){
@@ -91,6 +106,7 @@ public abstract class Agent implements Runnable, Serializable {
     public synchronized boolean isPaused(){
         return paused;
     }
+
 
     // wait for notification if not stopped and yes paused
     private synchronized void checkPaused(){
@@ -123,6 +139,7 @@ public abstract class Agent implements Runnable, Serializable {
         //The run method repeatedly calls the abstract update method.
         myThread = Thread.currentThread();
         while(!isStopped()){
+            world.updateStatistics();
             try {
                 update();
                 Thread.sleep(1000);
@@ -133,5 +150,6 @@ public abstract class Agent implements Runnable, Serializable {
             }
         }
     }
+
 
 }

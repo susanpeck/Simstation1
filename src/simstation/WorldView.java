@@ -40,22 +40,26 @@ public class WorldView extends View{
     }
 
     public void paintComponent(Graphics gc){
+        super.paintComponent(gc);
+        Graphics2D g2d = (Graphics2D) gc;
+
         //paint all the agents in the World
-        for(Agent a : worldModel.getAgents()){
-            drawAgent(a, gc);
+        synchronized(worldModel) {
+            for(Agent a : worldModel.getAgents()){
+                drawAgent(a, g2d);
+            }
         }
     }
 
-    public void drawAgent(Agent a, Graphics gc){
+    public void drawAgent(Agent a, Graphics2D gc){
         // marked off in Turtle Graphics for View accessing or changing things it shouldn't
 
         // draw a diameter 10 red filled oval at Agents a's location
         int xCoordinate = a.getXc();
         int yCoordinate = a.getYc();
-        Graphics2D g2d = (Graphics2D)gc;
         Ellipse2D.Double circle = new Ellipse2D.Double(xCoordinate-5, yCoordinate-5, 10, 10);
-        g2d.setColor(Color.RED);
-        g2d.fill(circle);
-        g2d.draw(circle);
+        gc.setColor(Color.RED);
+        gc.fill(circle);
+        gc.draw(circle);
     }
 }

@@ -3,7 +3,7 @@ package simstation;
 import mvc.Model;
 import mvc.Utilities;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /*
 Susan Peck, Evalynna Ong, Jiajun Zheng
@@ -27,7 +27,7 @@ public class World extends Model {
     // default constructor
     public World() {
         agents = new ArrayList<Agent>();
-        observer = new ObserverAgent("The Observer");
+        observer = new ObserverAgent();
     }
 
     // specialized constructor
@@ -40,6 +40,7 @@ public class World extends Model {
 
     public void addAgent(Agent a){
         agents.add(a);
+        a.setWorld(this);
     }
 
     // do we need a removeAgent(Agent a) method?
@@ -52,6 +53,7 @@ public class World extends Model {
         // not sure if this needs to call changed, or just the start method which then calls changed?
         populate();
         for(Agent a : agents){
+            //System.out.println("Starting agent: " + a.getAgentName());
             a.start();
         }
     }
@@ -91,7 +93,7 @@ public class World extends Model {
         number of agents that are still active.
          */
         clock++;
-        alive++;
+        alive = agents.size();  //i don't know if this actually increments always
     }
 
 
@@ -108,7 +110,8 @@ Agent partner = world.getNeighbor(this, 10); // try to find a random agent (not 
         // number of steps from caller agent to random agent in list
         int distance = Math.abs(caller.getXc() - neighbor.getXc()) + Math.abs(caller.getYc() - neighbor.getYc());
 
-        while(distance > radius){
+        int attempts = 0;
+        while(distance > radius && attempts < agents.size()){
             randomLocation++; // index of next agent in list
             if(randomLocation > agents.size() - 1){
                 randomLocation = randomLocation - agents.size() + 1; //wrap to beginning of list
@@ -116,11 +119,12 @@ Agent partner = world.getNeighbor(this, 10); // try to find a random agent (not 
             neighbor = agents.get(randomLocation);
             distance = Math.abs(caller.getXc() - neighbor.getXc()) + Math.abs(caller.getYc() - neighbor.getYc());
         }
-        return neighbor;
+        return (attempts == agents.size())? null : neighbor; // if no neighbors found, return null
     }
 
     public int getSize(){
         return SIZE;
     }
+
 
 }
