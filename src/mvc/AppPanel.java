@@ -12,7 +12,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
     protected AppFactory factory;
     protected View view;
     protected JPanel controlPanel;
-    private JFrame frame;
+    protected JFrame frame;
     public static int FRAME_WIDTH = 500;
     public static int FRAME_HEIGHT = 300;
 
@@ -28,6 +28,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         this.setLayout((new GridLayout(1, 2)));
         this.add(controlPanel); //adds the control panel to the left side
         this.add(view); // add the view to the right side
+        model.subscribe(this);
 
         frame = new SafeFrame();
         Container cp = frame.getContentPane();
@@ -95,7 +96,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
             } else if (cmmd.equals("Help")) {
                 Utilities.inform(factory.getHelp());
             } else { // must be from Edit menu
-                factory.makeEditCommand(this.model, cmmd, null).execute();
+                factory.makeEditCommand(this.model, cmmd, ae.getSource()).execute();
 
             }
         } catch (Exception e) {

@@ -8,6 +8,7 @@ public class View extends JPanel implements Subscriber{
     protected Model model;
 
     public View(Model model) {
+        super();
         this.model = model;
         model.subscribe(this);
         Border blackLine = BorderFactory.createLineBorder(Color.black);
@@ -16,13 +17,17 @@ public class View extends JPanel implements Subscriber{
 
     @Override
     public void update() {
-        repaint();
+        this.repaint();
     }
 
     public void setModel(Model model) {
-        this.model.unsubscribe(this);
+        if (model != null) {
+            model.unsubscribe(this);
+        }
         this.model = model;
-        this.model.subscribe(this);
-        repaint();
+        if (this.model != null) {
+            model.subscribe(this);
+            update();
+        }
     }
 }
