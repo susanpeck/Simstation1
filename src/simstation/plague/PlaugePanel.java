@@ -50,7 +50,7 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
     private void createComponents() {
         // Initial % Infected slider
         infectedLabel = new JLabel("Initial % Infected:");
-        initialInfectedSlider = new JSlider(0, 100, 10);
+        initialInfectedSlider = new JSlider(0, 100, 5);
         initialInfectedSlider.setMajorTickSpacing(10);
         initialInfectedSlider.setMinorTickSpacing(2);
         initialInfectedSlider.setPaintTicks(true);
@@ -60,7 +60,7 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
 
         // Infection Probability slider
         probabilityLabel = new JLabel("Infection Probability:");
-        infectionProbabilitySlider = new JSlider(0, 100, 50);
+        infectionProbabilitySlider = new JSlider(0, 100, PlagueSim.VIRULENCE);
         infectionProbabilitySlider.setMajorTickSpacing(10);
         infectionProbabilitySlider.setMinorTickSpacing(2);
         infectionProbabilitySlider.setPaintTicks(true);
@@ -69,7 +69,7 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
 
         // Initial Population Size slider
         populationLabel = new JLabel("Initial Population Size:");
-        initialPopulationSlider = new JSlider(0, 200, 100);
+        initialPopulationSlider = new JSlider(0, 200, PlagueSim.POPULATION);
         initialPopulationSlider.setMajorTickSpacing(20);
         initialPopulationSlider.setMinorTickSpacing(2);
         initialPopulationSlider.setPaintTicks(true);
@@ -78,7 +78,7 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
 
         // Fatality/Recovery Time slider
         fatalityLabel = new JLabel("Fatality/Recovery Time:");
-        fatalityTimeSlider = new JSlider(0, 500, 250);
+        fatalityTimeSlider = new JSlider(0, 500, PlagueSim.TIME);
         fatalityTimeSlider.setMajorTickSpacing(50);
         fatalityTimeSlider.setMinorTickSpacing(5);
         fatalityTimeSlider.setPaintTicks(true);
