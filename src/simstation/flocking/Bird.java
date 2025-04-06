@@ -11,8 +11,7 @@ public class Bird extends MobileAgent {
 
     public Bird() {
         super();
-        heading = Heading.random();
-        speed = Utilities.rng.nextInt(20) + 1;
+        speed = Utilities.rng.nextInt(20) + 10;
     }
 
     public int getSpeed() {
