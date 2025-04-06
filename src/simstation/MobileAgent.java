@@ -50,42 +50,50 @@ public abstract class MobileAgent extends Agent {
         }
     }
 
-    public void turn(String direction){
+    public void turn(Heading dir){
         //guessing that we can only turn left or right?
-        if(direction.equals("right")){
-            if(heading == Heading.NORTH){
-                heading = Heading.EAST;
-            }
-            else if(heading == Heading.EAST){
-                heading = Heading.SOUTH;
-            }
-            else if(heading == Heading.SOUTH){
-                heading = Heading.WEST;
-            }
-            else if(heading == Heading.WEST){
-                heading = Heading.NORTH;
-            }
-            else {
-                // what goes here?
-            }
-        }
-        else if (direction.equals("left")){
-            if(heading == Heading.NORTH){
-                heading = Heading.WEST;
-            }
-            else if(heading == Heading.EAST){
-                heading = Heading.NORTH;
-            }
-            else if(heading == Heading.SOUTH){
-                heading = Heading.EAST;
-            }
-            else if(heading == Heading.WEST){
-                heading = Heading.SOUTH;
-            }
-            else {
-                // what goes here?
-            }
-        }
+        /*
+        * I think the prof just wants this method to set the heading to the direction
+        * based on the UML diagram and the description:
+        * A mobile agent has a heading (N, E, S, W) that can be changed using its turn method.
+        *
+        * UML diagram: turn(dir: Heading)
+        */
+        this.heading = dir;
+//        if(direction.equals("right")){
+//            if(heading == Heading.NORTH){
+//                heading = Heading.EAST;
+//            }
+//            else if(heading == Heading.EAST){
+//                heading = Heading.SOUTH;
+//            }
+//            else if(heading == Heading.SOUTH){
+//                heading = Heading.WEST;
+//            }
+//            else if(heading == Heading.WEST){
+//                heading = Heading.NORTH;
+//            }
+//            else {
+//                // what goes here?
+//            }
+//        }
+//        else if (direction.equals("left")){
+//            if(heading == Heading.NORTH){
+//                heading = Heading.WEST;
+//            }
+//            else if(heading == Heading.EAST){
+//                heading = Heading.NORTH;
+//            }
+//            else if(heading == Heading.SOUTH){
+//                heading = Heading.EAST;
+//            }
+//            else if(heading == Heading.WEST){
+//                heading = Heading.SOUTH;
+//            }
+//            else {
+//                // what goes here?
+//            }
+//        }
     }
 
     @Override
