@@ -19,9 +19,9 @@ public class World extends Model {
      */
 
     private static final int SIZE = 500;
-    private int alive = 0;
-    private int clock = 0;
-    private ArrayList<Agent> agents; //should this be a list?
+    protected int alive = 0;
+    protected int clock = 0;
+    protected ArrayList<Agent> agents; //should this be a list?
     private ObserverAgent observer;
 
     // default constructor
