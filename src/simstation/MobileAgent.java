@@ -102,7 +102,6 @@ public abstract class MobileAgent extends Agent {
 
     @Override
     public void update() {
-        System.out.println(getAgentName() + "is updating.");
         move(1);
     }
 }
