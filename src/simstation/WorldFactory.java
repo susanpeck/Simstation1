@@ -25,6 +25,7 @@ public class WorldFactory implements AppFactory {
         return new String[] {
                 "Start - populates simulation with agents",
                 "Pauses - pauses agents",
+                "Resume - starts the paused agents",
                 "Stop - stops agents",
                 "Stats - shows stats of agents",
         };
