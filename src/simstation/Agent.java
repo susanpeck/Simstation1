@@ -142,7 +142,7 @@ public abstract class Agent implements Runnable, Serializable {
             world.updateStatistics();
             try {
                 update();
-                Thread.sleep(1000);
+                Thread.sleep(200);
                 checkPaused();
             }
             catch(InterruptedException e){
