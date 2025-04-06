@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public class WorldView extends View{
-    private static final int AGENT_DIAMETER = 10;
+    public static int AGENT_DIAMETER = 10;
 
     public WorldView(Model m){
         super(m);
@@ -31,16 +31,18 @@ public class WorldView extends View{
         }
     }
 
-    public void drawAgent(Agent a, Graphics2D gc){
+    public void drawAgent(Agent a, Graphics2D gc) {
         // marked off in Turtle Graphics for View accessing or changing things it shouldn't
 
         // draw a diameter 10 red filled oval at Agents a's location
         int xCoordinate = a.getXc();
         int yCoordinate = a.getYc();
-        Ellipse2D.Double circle = new Ellipse2D.Double(xCoordinate - (AGENT_DIAMETER/2),
-                                                        yCoordinate - (AGENT_DIAMETER/2),
-                                                        AGENT_DIAMETER,
-                                                        AGENT_DIAMETER);
+        Ellipse2D.Double circle = new Ellipse2D.Double(
+                xCoordinate - (AGENT_DIAMETER/2),
+                yCoordinate - (AGENT_DIAMETER/2),
+                AGENT_DIAMETER,
+                AGENT_DIAMETER
+        );
         gc.setColor(Color.RED);
         gc.fill(circle);
         gc.draw(circle);
