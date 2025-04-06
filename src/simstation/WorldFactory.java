@@ -22,7 +22,12 @@ public class WorldFactory implements AppFactory {
     }
 
     public String[] getHelp() {
-        return new String[] {"Direction line one", "Direction line two"};
+        return new String[] {
+                "Start - populates simulation with agents",
+                "Pauses - pauses agents",
+                "Stop - stops agents",
+                "Stats - shows stats of agents",
+        };
     }
 
     public String about() {
@@ -34,21 +39,13 @@ public class WorldFactory implements AppFactory {
     }
 
     public Command makeEditCommand(Model model, String type, Object source) {
-        if(type.equals("Start")) {
-            return new StartCommand(model);
-        }
-        else if(type.equals("Pause")) {
-            return new PauseCommand(model);
-        }
-        else if(type.equals("Resume")) {
-            return new ResumeCommand(model);
-        }
-        else if(type.equals("Stop")) {
-            return new StopCommand(model);
-        }
-        else if(type.equals("Stats")) {
-            return new StatsCommand(model);
-        }
-        return null;
+        return switch (type) {
+            case "Start" -> new StartCommand(model);
+            case "Pause" -> new PauseCommand(model);
+            case "Resume" -> new ResumeCommand(model);
+            case "Stop" -> new StopCommand(model);
+            case "Stats" -> new StatsCommand(model);
+            default -> null;
+        };
     }
 }
