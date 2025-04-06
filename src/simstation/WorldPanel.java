@@ -85,9 +85,13 @@ public class WorldPanel extends AppPanel {
         }
     }
 
-    public static void main(String[] Args){
-        AppFactory factory = new WorldFactory();
-        AppPanel panel = new WorldPanel(factory);
-        panel.display();
-    }
+    // i dont think we would need this since our customization would
+    // use their own factories and panels
+
+//    public static void main(String[] Args){
+//        AppFactory factory = new WorldFactory();
+//        AppPanel panel = new WorldPanel(factory);
+//        panel.display();
+//    }
 }
+
