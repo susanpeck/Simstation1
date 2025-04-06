@@ -96,6 +96,10 @@ public abstract class MobileAgent extends Agent {
 //        }
     }
 
+    public Heading getHeading(){
+        return heading;
+    }
+
     @Override
     public void update() {
         System.out.println(getAgentName() + "is updating.");
