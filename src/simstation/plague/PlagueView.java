@@ -32,6 +32,5 @@ public class PlagueView extends WorldView {
             gc.setColor(Color.GREEN);
         }
         gc.fill(circle);
-        gc.draw(circle);
     }
 }
