@@ -53,7 +53,10 @@ public class Creature extends MobileAgent {
                     isDead = true;
                 }
                 isInfected = false;
-                plague.setINFECTED(plague.getINFECTED() - 1);
+                if (plague.getINFECTED() > 0) {
+                    plague.setINFECTED(plague.getINFECTED() - 1);
+                }
+                time = 0;
             }
             move(1);
         }
