@@ -20,6 +20,7 @@ public abstract class Agent implements Runnable, Serializable {
     protected String agentName;
     private Boolean paused;
     private Boolean stopped;
+    public static int sleepTime = 200;
 
     // what is a thread again? do we need something with synchronized?
 
@@ -142,7 +143,7 @@ public abstract class Agent implements Runnable, Serializable {
             world.updateStatistics();
             try {
                 update();
-                Thread.sleep(200);
+                Thread.sleep(sleepTime);
                 checkPaused();
             }
             catch(InterruptedException e){
