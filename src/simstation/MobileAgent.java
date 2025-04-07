@@ -38,12 +38,19 @@ public abstract class MobileAgent extends Agent {
             }
 
             // world coordinates wrap around
-            if(yc > world.getSize()){
-                yc = world.getSize() - yc;
-            }
-            if(xc > world.getSize()){
-                xc = world.getSize() - xc;
-            }
+
+            // the original doesnt account for negative cases such as world size = 100, yc = 101
+            // there is also other negative cases like if yc is less than 0
+            // using Math.abs(world.getSize() - yc) could probably work but its late at night rn and im pretty tired lmao
+//            if(yc > world.getSize()){
+//                yc = world.getSize() - yc;
+//            }
+//            if(xc > world.getSize()){
+//                xc = world.getSize() - xc;
+//            }
+            int worldSize = world.getSize();
+            yc = ((yc % worldSize) + worldSize) % worldSize;
+            xc = ((xc % worldSize) + worldSize) % worldSize;
 
             // if mobile agents move, then we need to call changed() method
             world.changed();
