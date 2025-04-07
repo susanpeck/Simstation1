@@ -22,7 +22,10 @@ public class PlagueView extends WorldView {
                 AGENT_DIAMETER,
                 AGENT_DIAMETER
         );
-        if (((Creature)a).isInfected()) {
+        if (((Creature)a).isDead()) {
+            gc.setColor(Color.BLACK);
+        }
+        else if (((Creature)a).isInfected()) {
             gc.setColor(Color.RED);
         }
         else {
