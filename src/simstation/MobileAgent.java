@@ -10,6 +10,11 @@ public abstract class MobileAgent extends Agent {
         heading = Heading.random();
     }
 
+    public MobileAgent(String name) {
+        super(name);
+        heading = Heading.random();
+    }
+
 
     public void move(int steps){
         /*

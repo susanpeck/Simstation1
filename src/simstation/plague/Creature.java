@@ -15,6 +15,7 @@ public class Creature extends MobileAgent {
     }
 
     public Creature(int recoveryOrFatalityTime, boolean isFatal, boolean isInfected) {
+        super("Creature");
         this.recoveryOrFatalityTime = recoveryOrFatalityTime;
         this.isFatal = isFatal;
         this.isInfected = isInfected;
