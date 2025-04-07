@@ -9,6 +9,10 @@ public class Bird extends MobileAgent {
     private int speed;
     private final int RADIUS = 10;
 
+    static {
+        sleepTime = 50;
+    }
+
     public Bird() {
         super();
         speed = Utilities.rng.nextInt(20) + 10;
