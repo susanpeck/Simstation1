@@ -13,6 +13,6 @@ public class FatalCommand extends Command {
         if (!(model instanceof PlagueSim plauge)) {
             throw new Exception("Model must be a World.");
         }
-        plauge.setFatality(!plauge.isFatal());
+        plauge.setFatal(!plauge.isFatal());
     }
 }
