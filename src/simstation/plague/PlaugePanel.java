@@ -9,7 +9,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class PlaugePanel extends WorldPanel implements ChangeListener, ActionListener {
+public class PlaugePanel extends WorldPanel {
     private JLabel infectedLabel;
     private JLabel probabilityLabel;
     private JLabel populationLabel;
@@ -21,7 +21,6 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
     private JSlider initialPopulationSlider;
     private JSlider fatalityTimeSlider;
 
-    // no clue what this button does
     private JButton notFatalButton;
 
     public PlaugePanel(AppFactory factory) {
@@ -31,23 +30,26 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
         sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
         sliderPanel.setBackground(Color.PINK);
 
-        createComponents();
+        try {
+            createComponents();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         addComponents(sliderPanel);
 
         controlPanel.add(sliderPanel);
     }
 
     public static void main(String[] args) {
-        AppPanel panel = new PlaugePanel(new PlagueFactory());
+        PlaugePanel panel = new PlaugePanel(new PlagueFactory());
         panel.display();
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
+    private void createComponents() throws Exception {
+        if (!(model instanceof PlagueSim p)) {
+            throw new IllegalArgumentException("Model must be a PlagueSim.");
+        }
 
-    }
-
-    private void createComponents() {
         // Initial % Infected slider
         infectedLabel = new JLabel("Initial % Infected:");
         initialInfectedSlider = new JSlider(0, 100, 5);
@@ -56,7 +58,11 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
         initialInfectedSlider.setPaintTicks(true);
         initialInfectedSlider.setPaintLabels(true);
         initialInfectedSlider.setOpaque(true);
-        //initialInfectedSlider.addChangeListener();
+        initialInfectedSlider.addChangeListener(e -> {
+            if(!initialInfectedSlider.getValueIsAdjusting()) {
+                PlagueSim.INFECTED_PERCENTAGE = initialInfectedSlider.getValue();
+            }
+        });
 
         // Infection Probability slider
         probabilityLabel = new JLabel("Infection Probability:");
@@ -66,6 +72,11 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
         infectionProbabilitySlider.setPaintTicks(true);
         infectionProbabilitySlider.setPaintLabels(true);
         infectionProbabilitySlider.setOpaque(true);
+        infectionProbabilitySlider.addChangeListener(e -> {
+            if(!infectionProbabilitySlider.getValueIsAdjusting()) {
+                PlagueSim.VIRULENCE = infectionProbabilitySlider.getValue();
+            }
+        });
 
         // Initial Population Size slider
         populationLabel = new JLabel("Initial Population Size:");
@@ -75,6 +86,11 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
         initialPopulationSlider.setPaintTicks(true);
         initialPopulationSlider.setPaintLabels(true);
         initialPopulationSlider.setOpaque(true);
+        initialPopulationSlider.addChangeListener(e -> {
+            if(!initialPopulationSlider.getValueIsAdjusting()) {
+                PlagueSim.POPULATION = initialPopulationSlider.getValue();
+            }
+        });
 
         // Fatality/Recovery Time slider
         fatalityLabel = new JLabel("Fatality/Recovery Time:");
@@ -84,6 +100,11 @@ public class PlaugePanel extends WorldPanel implements ChangeListener, ActionLis
         fatalityTimeSlider.setPaintTicks(true);
         fatalityTimeSlider.setPaintLabels(true);
         fatalityTimeSlider.setOpaque(true);
+        fatalityTimeSlider.addChangeListener(e -> {
+            if(!fatalityTimeSlider.getValueIsAdjusting()) {
+                PlagueSim.TIME = fatalityTimeSlider.getValue();
+            }
+        });
 
         // Not Fatal button
         notFatalButton = new JButton("Not Fatal");
