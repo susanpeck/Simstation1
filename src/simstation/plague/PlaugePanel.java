@@ -21,17 +21,21 @@ public class PlaugePanel extends WorldPanel {
     private JSlider fatalityTimeSlider;
 
     private JButton notFatalButton;
+    private JPanel sliderPanel;
+    private PlagueSim p;
 
     public PlaugePanel(AppFactory factory) {
         super(factory);
 
-        JPanel sliderPanel = new JPanel();
+        sliderPanel = new JPanel();
         sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
         sliderPanel.setBackground(Color.PINK);
 
-        if (!(model instanceof PlagueSim p)) {
+        if (!(model instanceof PlagueSim)) {
             throw new IllegalArgumentException("Model must be a PlagueSim.");
         }
+
+        p = (PlagueSim) model;
 
         // Initial % Infected slider
         infectedLabel = new JLabel("Initial % Infected:");
@@ -120,6 +124,19 @@ public class PlaugePanel extends WorldPanel {
         sliderPanel.add(notFatalButton);
 
         controlPanel.add(sliderPanel);
+    }
+
+    @Override
+    public void setModel(Model newModel) {
+        super.setModel(newModel);
+        if (!(newModel instanceof PlagueSim)) {
+            throw new IllegalArgumentException("Model must be a PlagueSim.");
+        }
+        p = (PlagueSim) newModel;
+        initialInfectedSlider.setValue(p.getINFECTED_PERCENTAGE());
+        infectionProbabilitySlider.setValue(p.getVIRULENCE());
+        initialPopulationSlider.setValue(p.getPOPULATION());
+        fatalityTimeSlider.setValue(p.getTIME());
     }
 
     public static void main(String[] args) {
