@@ -4,10 +4,9 @@ import mvc.*;
 import simstation.*;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
+
+// there is a bug where pressing new doesn't update sliders
 
 public class PlaugePanel extends WorldPanel {
     private JLabel infectedLabel;
@@ -30,29 +29,13 @@ public class PlaugePanel extends WorldPanel {
         sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
         sliderPanel.setBackground(Color.PINK);
 
-        try {
-            createComponents();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        addComponents(sliderPanel);
-
-        controlPanel.add(sliderPanel);
-    }
-
-    public static void main(String[] args) {
-        PlaugePanel panel = new PlaugePanel(new PlagueFactory());
-        panel.display();
-    }
-
-    private void createComponents() throws Exception {
         if (!(model instanceof PlagueSim p)) {
             throw new IllegalArgumentException("Model must be a PlagueSim.");
         }
 
         // Initial % Infected slider
         infectedLabel = new JLabel("Initial % Infected:");
-        initialInfectedSlider = new JSlider(0, 100, 5);
+        initialInfectedSlider = new JSlider(0, 100, p.getINFECTED_PERCENTAGE());
         initialInfectedSlider.setMajorTickSpacing(10);
         initialInfectedSlider.setMinorTickSpacing(2);
         initialInfectedSlider.setPaintTicks(true);
@@ -60,13 +43,13 @@ public class PlaugePanel extends WorldPanel {
         initialInfectedSlider.setOpaque(true);
         initialInfectedSlider.addChangeListener(e -> {
             if(!initialInfectedSlider.getValueIsAdjusting()) {
-                PlagueSim.INFECTED_PERCENTAGE = initialInfectedSlider.getValue();
+                p.setINFECTED_PERCENTAGE(initialInfectedSlider.getValue());
             }
         });
 
         // Infection Probability slider
         probabilityLabel = new JLabel("Infection Probability:");
-        infectionProbabilitySlider = new JSlider(0, 100, PlagueSim.VIRULENCE);
+        infectionProbabilitySlider = new JSlider(0, 100, p.getVIRULENCE());
         infectionProbabilitySlider.setMajorTickSpacing(10);
         infectionProbabilitySlider.setMinorTickSpacing(2);
         infectionProbabilitySlider.setPaintTicks(true);
@@ -74,13 +57,13 @@ public class PlaugePanel extends WorldPanel {
         infectionProbabilitySlider.setOpaque(true);
         infectionProbabilitySlider.addChangeListener(e -> {
             if(!infectionProbabilitySlider.getValueIsAdjusting()) {
-                PlagueSim.VIRULENCE = infectionProbabilitySlider.getValue();
+                p.setVIRULENCE(infectionProbabilitySlider.getValue());
             }
         });
 
         // Initial Population Size slider
         populationLabel = new JLabel("Initial Population Size:");
-        initialPopulationSlider = new JSlider(0, 200, PlagueSim.POPULATION);
+        initialPopulationSlider = new JSlider(0, 200, p.getPOPULATION());
         initialPopulationSlider.setMajorTickSpacing(20);
         initialPopulationSlider.setMinorTickSpacing(2);
         initialPopulationSlider.setPaintTicks(true);
@@ -88,13 +71,13 @@ public class PlaugePanel extends WorldPanel {
         initialPopulationSlider.setOpaque(true);
         initialPopulationSlider.addChangeListener(e -> {
             if(!initialPopulationSlider.getValueIsAdjusting()) {
-                PlagueSim.POPULATION = initialPopulationSlider.getValue();
+                p.setPOPULATION(initialPopulationSlider.getValue());
             }
         });
 
         // Fatality/Recovery Time slider
         fatalityLabel = new JLabel("Fatality/Recovery Time:");
-        fatalityTimeSlider = new JSlider(0, 500, PlagueSim.TIME);
+        fatalityTimeSlider = new JSlider(0, 500, p.getTIME());
         fatalityTimeSlider.setMajorTickSpacing(50);
         fatalityTimeSlider.setMinorTickSpacing(5);
         fatalityTimeSlider.setPaintTicks(true);
@@ -102,7 +85,7 @@ public class PlaugePanel extends WorldPanel {
         fatalityTimeSlider.setOpaque(true);
         fatalityTimeSlider.addChangeListener(e -> {
             if(!fatalityTimeSlider.getValueIsAdjusting()) {
-                PlagueSim.TIME = fatalityTimeSlider.getValue();
+                p.setTIME(fatalityTimeSlider.getValue());
             }
         });
 
@@ -116,26 +99,31 @@ public class PlaugePanel extends WorldPanel {
         populationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         fatalityLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         notFatalButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Add them all to the slider panel
+        sliderPanel.add(infectedLabel);
+        sliderPanel.add(initialInfectedSlider);
+        sliderPanel.add(Box.createVerticalStrut(25)); // adds spacing between sections
+
+        sliderPanel.add(probabilityLabel);
+        sliderPanel.add(infectionProbabilitySlider);
+        sliderPanel.add(Box.createVerticalStrut(25));
+
+        sliderPanel.add(populationLabel);
+        sliderPanel.add(initialPopulationSlider);
+        sliderPanel.add(Box.createVerticalStrut(25));
+
+        sliderPanel.add(fatalityLabel);
+        sliderPanel.add(fatalityTimeSlider);
+        sliderPanel.add(Box.createVerticalStrut(25));
+
+        sliderPanel.add(notFatalButton);
+
+        controlPanel.add(sliderPanel);
     }
 
-    private void addComponents(JPanel panel) {
-        // Add them all to the slider panel
-        panel.add(infectedLabel);
-        panel.add(initialInfectedSlider);
-        panel.add(Box.createVerticalStrut(25)); // adds spacing between sections
-
-        panel.add(probabilityLabel);
-        panel.add(infectionProbabilitySlider);
-        panel.add(Box.createVerticalStrut(25));
-
-        panel.add(populationLabel);
-        panel.add(initialPopulationSlider);
-        panel.add(Box.createVerticalStrut(25));
-
-        panel.add(fatalityLabel);
-        panel.add(fatalityTimeSlider);
-        panel.add(Box.createVerticalStrut(25));
-
-        panel.add(notFatalButton);
+    public static void main(String[] args) {
+        PlaugePanel panel = new PlaugePanel(new PlagueFactory());
+        panel.display();
     }
 }
