@@ -1,7 +1,5 @@
 package simstation.prisonersDilemma;
 
-public class Strategy {
-    public static void main(String[] args) {
-
-    }
+public abstract class Strategy {
+    public boolean cooperate(){return true;} // make the default
 }
