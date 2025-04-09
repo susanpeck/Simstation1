@@ -16,7 +16,21 @@ public class Patch extends Agent {
 
     }
 
-    public void eatMe(Cow cow, int amt) {
-
+    public synchronized void eatMe(Cow cow, int amt) {
+        // what prof had
+//        if(cow.isStopped()) return;
+//        while (energy < amt) {
+//            try {
+//                wait();
+//                //cow.decEnergy(Meadow.waitPenalty);
+//                if (cow.isStopped()) break;
+//            }
+//            catch (InterruptedException e) {
+//                System.err.println(e.getMessage());
+//            }
+//            if (cow.energy???) {
+//                do stuff lmao i didnt get everything
+//            }
+//        }
     }
 }
