@@ -10,6 +10,7 @@ import mvc.View;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.Iterator;
 
 public class WorldView extends View{
     public static int AGENT_DIAMETER = 10;
@@ -26,7 +27,9 @@ public class WorldView extends View{
     public void paintComponent(Graphics gc){
         super.paintComponent(gc);
         //paint all the agents in the World
-        for(Agent a : ((World)model).getAgents()){
+        Iterator<Agent> it = ((World)model).iterator();
+        while(it.hasNext()) {
+            Agent a = it.next();
             drawAgent(a, (Graphics2D)gc);
         }
     }

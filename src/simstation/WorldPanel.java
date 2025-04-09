@@ -4,6 +4,7 @@ import mvc.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Iterator;
 
 /*
 Susan Peck, Evalynna Ong, Jiajun Zheng
@@ -78,9 +79,9 @@ public class WorldPanel extends AppPanel {
     public void setModel(Model newModel) {
         super.setModel(newModel);
         World w = (World) newModel;
-
-        for(Agent a : w.getAgents()){
-            Thread t = new Thread(a);
+        Iterator<Agent> it = w.iterator();
+        while(it.hasNext()) {
+            Thread t = new Thread(it.next());
             t.start();
         }
     }

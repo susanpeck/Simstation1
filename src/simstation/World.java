@@ -126,5 +126,7 @@ Agent partner = world.getNeighbor(this, 10); // try to find a random agent (not 
         return SIZE;
     }
 
-
+    public Iterator<Agent> iterator() {
+        return agents.iterator();
+    }
 }
