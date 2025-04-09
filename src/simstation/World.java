@@ -66,7 +66,9 @@ public class World extends Model {
 
     public void pauseAgents(){
         for(Agent a : agents){
-            a.pause();
+            if (!a.isPaused()) {
+                a.pause();
+            }
         }
     }
 
