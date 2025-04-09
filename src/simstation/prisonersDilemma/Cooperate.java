@@ -1,5 +1,5 @@
 package simstation.prisonersDilemma;
 
-public class Cooperate extends Strategy{
-    // just follows Strategy, which I've made cooperate by default
+public class Cooperate implements Strategy{
+    public boolean cooperate() { return true; } // always cooperate
 }

@@ -1,8 +1,5 @@
 package simstation.prisonersDilemma;
 
-public class Cheat extends Strategy{
-    @Override
-    public boolean cooperate() {
-        return false;
-    }
+public class Cheat implements Strategy{
+    public boolean cooperate() { return false; }
 }

@@ -2,8 +2,8 @@ package simstation.prisonersDilemma;
 
 import static mvc.Utilities.rng;
 
-public class RandomlyCooperate extends Strategy{
-    @Override
+public class RandomlyCooperate implements Strategy{
+
     public boolean cooperate() {
         int r = rng.nextInt(2);
         if (r == 0) {

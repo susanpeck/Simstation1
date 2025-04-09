@@ -5,8 +5,9 @@ import simstation.World;
 import simstation.WorldPanel;
 
 public class Tournament extends World {
+    public static int population = 50;
     public void populate() {
-        for(int i = 0; i < 50; i++) {
+        for(int i = 0; i < population; i++) {
             addAgent(new Prisoner()); //
         }
     }
