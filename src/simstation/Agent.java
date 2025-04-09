@@ -102,7 +102,6 @@ public abstract class Agent implements Runnable, Serializable {
     }
     public synchronized void pause(){
         paused = true;
-        notify();
     }
     public synchronized boolean isPaused(){
         return paused;
