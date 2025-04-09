@@ -18,7 +18,7 @@ public class World extends Model {
     start, stop, pause, and resume methods of its agents.
      */
 
-    private static final int SIZE = 500;
+    protected static final int SIZE = 500;
     protected int alive = 0;
     protected int clock = 0;
     protected ArrayList<Agent> agents; //should this be a list?
