@@ -134,7 +134,7 @@ public abstract class Agent implements Runnable, Serializable {
         //The run method repeatedly calls the abstract update method.
         myThread = Thread.currentThread();
         while(!isStopped()){
-            world.updateStatistics();
+            update(); // changing to update() from world.updateStatistics
             try {
                 update();
                 Thread.sleep(sleepTime);

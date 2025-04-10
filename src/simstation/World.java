@@ -16,8 +16,8 @@ public class World extends Model {
      */
 
     private static final int SIZE = 500;
-    protected int alive = 0;
-    protected int clock = 0;
+    protected int alive;
+    protected int clock;
     protected ArrayList<Agent> agents;
     private ObserverAgent observer;
 
@@ -25,6 +25,8 @@ public class World extends Model {
     public World() {
         agents = new ArrayList<Agent>();
         observer = new ObserverAgent();
+        alive = 0;
+        clock = 0;
     }
 
     // specialized constructor
@@ -88,7 +90,7 @@ public class World extends Model {
         number of agents that are still active.
          */
         clock++;
-        alive = agents.size();  //i don't know if this actually increments always
+        alive = agents.size();
     }
 
     public Agent getNeighbor(Agent caller, int radius){
