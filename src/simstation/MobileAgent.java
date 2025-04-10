@@ -1,5 +1,10 @@
 package simstation;
 
+/*
+Susan Peck, Evalynna Ong, Jiajun Zheng
+SimStation Group 1 CS151 Spring 2025
+ */
+
 public abstract class MobileAgent extends Agent {
 
     protected Heading heading; // a heading can be N, E, S, W, changed used turn
@@ -15,19 +20,12 @@ public abstract class MobileAgent extends Agent {
         heading = Heading.random();
     }
 
-
     public void move(int steps){
         /*
-        A mobile agent's location can be changed by calling its
-        move method. (Note that an agent wraps around the world
-        if it's location goes beyond the border.
+        A mobile agent's location can be changed by calling its move method.
+        An agent wraps around the world if it's location goes beyond the border.
          */
-
-        /*
-        "In my version an agent moves one step at a time for n steps, calling world.changed after each step"
-        -professor pearce
-         */
-
+        // move one step at a time even if the number of steps is large
         for(int i = 1; i <= steps; i++){
             if(heading == Heading.NORTH){
                 yc = yc - 1;
@@ -41,71 +39,18 @@ public abstract class MobileAgent extends Agent {
             else if(heading == Heading.EAST){
                 xc = xc + 1;
             }
-
-            // world coordinates wrap around
-
-            // the original doesnt account for negative cases such as world size = 100, yc = 101
-            // there is also other negative cases like if yc is less than 0
-            // using Math.abs(world.getSize() - yc) could probably work but its late at night rn and im pretty tired lmao
-//            if(yc > world.getSize()){
-//                yc = world.getSize() - yc;
-//            }
-//            if(xc > world.getSize()){
-//                xc = world.getSize() - xc;
-//            }
+            // use mod to make sure the world coordinates wrap around
             int worldSize = world.getSize();
             yc = ((yc % worldSize) + worldSize) % worldSize;
             xc = ((xc % worldSize) + worldSize) % worldSize;
-
             // if mobile agents move, then we need to call changed() method
             world.changed();
         }
     }
 
+    // change the mobile agent's heading to a specific direction
     public void turn(Heading dir){
-        //guessing that we can only turn left or right?
-        /*
-        * I think the prof just wants this method to set the heading to the direction
-        * based on the UML diagram and the description:
-        * A mobile agent has a heading (N, E, S, W) that can be changed using its turn method.
-        *
-        * UML diagram: turn(dir: Heading)
-        */
         this.heading = dir;
-//        if(direction.equals("right")){
-//            if(heading == Heading.NORTH){
-//                heading = Heading.EAST;
-//            }
-//            else if(heading == Heading.EAST){
-//                heading = Heading.SOUTH;
-//            }
-//            else if(heading == Heading.SOUTH){
-//                heading = Heading.WEST;
-//            }
-//            else if(heading == Heading.WEST){
-//                heading = Heading.NORTH;
-//            }
-//            else {
-//                // what goes here?
-//            }
-//        }
-//        else if (direction.equals("left")){
-//            if(heading == Heading.NORTH){
-//                heading = Heading.WEST;
-//            }
-//            else if(heading == Heading.EAST){
-//                heading = Heading.NORTH;
-//            }
-//            else if(heading == Heading.SOUTH){
-//                heading = Heading.EAST;
-//            }
-//            else if(heading == Heading.WEST){
-//                heading = Heading.SOUTH;
-//            }
-//            else {
-//                // what goes here?
-//            }
-//        }
     }
 
     public Heading getHeading(){

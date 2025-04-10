@@ -5,9 +5,7 @@ Susan Peck, Evalynna Ong, Jiajun Zheng
 SimStation Group 1 CS151 Spring 2025
  */
 
-import mvc.Model;
-import mvc.View;
-
+import mvc.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.Iterator;
@@ -22,7 +20,6 @@ public class WorldView extends View{
         }
         this.setBackground(Color.GRAY);
     }
-
 
     public void paintComponent(Graphics gc){
         super.paintComponent(gc);

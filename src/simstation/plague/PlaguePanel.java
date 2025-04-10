@@ -2,13 +2,18 @@ package simstation.plague;
 
 import mvc.*;
 import simstation.*;
-
 import javax.swing.*;
 import java.awt.*;
 
+/*
+Susan Peck, Evalynna Ong, Jiajun Zheng
+SimStation Group 1 CS151 Spring 2025
+ */
+
+
 // there is a bug where pressing new doesn't update sliders
 
-public class PlaugePanel extends WorldPanel {
+public class PlaguePanel extends WorldPanel {
     private JLabel infectedLabel;
     private JLabel probabilityLabel;
     private JLabel populationLabel;
@@ -24,7 +29,7 @@ public class PlaugePanel extends WorldPanel {
     private JPanel sliderPanel;
     private PlagueSim p;
 
-    public PlaugePanel(AppFactory factory) {
+    public PlaguePanel(AppFactory factory) {
         super(factory);
 
         sliderPanel = new JPanel();
@@ -140,7 +145,7 @@ public class PlaugePanel extends WorldPanel {
     }
 
     public static void main(String[] args) {
-        PlaugePanel panel = new PlaugePanel(new PlagueFactory());
+        PlaguePanel panel = new PlaguePanel(new PlagueFactory());
         panel.display();
     }
 }

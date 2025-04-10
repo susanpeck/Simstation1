@@ -1,7 +1,6 @@
 package simstation;
 
 import mvc.*;
-
 /*
 Susan Peck, Evalynna Ong, Jiajun Zheng
 SimStation Group 1 CS151 Spring 2025

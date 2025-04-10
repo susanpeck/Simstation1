@@ -2,6 +2,10 @@ package simstation.plague;
 
 import mvc.Command;
 import mvc.Model;
+/*
+Susan Peck, Evalynna Ong, Jiajun Zheng
+SimStation Group 1 CS151 Spring 2025
+ */
 
 public class FatalCommand extends Command {
     public FatalCommand(Model model) {

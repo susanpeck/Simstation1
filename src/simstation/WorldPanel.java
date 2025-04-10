@@ -1,7 +1,6 @@
 package simstation;
 
 import mvc.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
@@ -72,10 +71,6 @@ public class WorldPanel extends AppPanel {
         // other extensions will add to the control panel in other regions
     }
 
-    // copied code below from assignment descriptions
-    // do we need an iterator?
-    // could we just use a for loop for the agents arraylist?
-    // or is it better to be more generic?
     public void setModel(Model newModel) {
         super.setModel(newModel);
         World w = (World) newModel;
@@ -85,14 +80,5 @@ public class WorldPanel extends AppPanel {
             t.start();
         }
     }
-
-    // i dont think we would need this since our customization would
-    // use their own factories and panels
-
-//    public static void main(String[] Args){
-//        AppFactory factory = new WorldFactory();
-//        AppPanel panel = new WorldPanel(factory);
-//        panel.display();
-//    }
 }
 

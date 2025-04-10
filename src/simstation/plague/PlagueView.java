@@ -6,6 +6,10 @@ import simstation.WorldView;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+/*
+Susan Peck, Evalynna Ong, Jiajun Zheng
+SimStation Group 1 CS151 Spring 2025
+ */
 
 public class PlagueView extends WorldView {
     public PlagueView(Model m) {

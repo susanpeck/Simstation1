@@ -2,6 +2,10 @@ package simstation.plague;
 
 import mvc.Utilities;
 import simstation.*;
+/*
+Susan Peck, Evalynna Ong, Jiajun Zheng
+SimStation Group 1 CS151 Spring 2025
+ */
 
 public class PlagueSim extends World {
     public int VIRULENCE = 50; // % chance of infection

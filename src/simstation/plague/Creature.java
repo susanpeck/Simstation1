@@ -3,6 +3,11 @@ package simstation.plague;
 import mvc.*;
 import simstation.*;
 
+/*
+Susan Peck, Evalynna Ong, Jiajun Zheng
+SimStation Group 1 CS151 Spring 2025
+ */
+
 public class Creature extends MobileAgent {
     private boolean isInfected;
     private int recoveryOrFatalityTime;
@@ -14,6 +19,13 @@ public class Creature extends MobileAgent {
         sleepTime = 20;
     }
 
+    /**
+     * Constructor of a Creature which is also a MobileAgent
+     *
+     * @param recoveryOrFatalityTime the amount of time before the creature
+     * @param isFatal boolean value to show if the creatures die after being infected
+     * @param isInfected boolean value if the creature is or is not infected
+     */
     public Creature(int recoveryOrFatalityTime, boolean isFatal, boolean isInfected) {
         super("Creature");
         this.recoveryOrFatalityTime = recoveryOrFatalityTime;

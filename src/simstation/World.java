@@ -1,10 +1,7 @@
 package simstation;
 
-import mvc.Model;
-import mvc.Utilities;
-
+import mvc.*;
 import java.util.*;
-
 /*
 Susan Peck, Evalynna Ong, Jiajun Zheng
 SimStation Group 1 CS151 Spring 2025
@@ -21,7 +18,7 @@ public class World extends Model {
     private static final int SIZE = 500;
     protected int alive = 0;
     protected int clock = 0;
-    protected ArrayList<Agent> agents; //should this be a list?
+    protected ArrayList<Agent> agents;
     private ObserverAgent observer;
 
     // default constructor
@@ -42,18 +39,17 @@ public class World extends Model {
         agents.add(a);
         a.setWorld(this);
     }
-
-    // do we need a removeAgent(Agent a) method?
-
+    public void removeAgent(Agent a){
+        agents.remove(a);
+        a.setWorld(this);
+    }
     public ArrayList<Agent> getAgents(){
         return agents;
     }
 
     public void startAgents(){
-        // not sure if this needs to call changed, or just the start method which then calls changed?
         populate();
         for(Agent a : agents){
-            //System.out.println("Starting agent: " + a.getAgentName());
             a.start();
         }
     }
@@ -82,7 +78,6 @@ public class World extends Model {
     }
 
     public String getStatus(){
-        // is this what is called when Stats button is pressed?
         return "#agents = " + agents.size() + "\n" + "#living = " + alive + "\n" + "#clock = " + clock;
     }
 
@@ -95,13 +90,6 @@ public class World extends Model {
         clock++;
         alive = agents.size();  //i don't know if this actually increments always
     }
-
-
-    /*
-    The main service the simulation provides to agents is getNeighbor. An agent seeking a random nearby partner to interact with might call:
-Agent partner = world.getNeighbor(this, 10); // try to find a random agent (not me) within 10 steps
-//An efficient implementation of getNeighbor picks a random location in the agents list. Starting at this location it visits each agent in order (wrapping around to the start if necessary) until it either finds a suitable neighbor or until it loops back to the starting point and returns null.
-     */
 
     public Agent getNeighbor(Agent caller, int radius){
         int randomLocation = Utilities.rng.nextInt(agents.size() - 1);

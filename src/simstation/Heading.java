@@ -1,6 +1,6 @@
 package simstation;
 
-import mvc.Utilities;
+import mvc.*;
 
 public enum Heading {
     NORTH, EAST, SOUTH, WEST;

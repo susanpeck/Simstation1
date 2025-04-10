@@ -1,20 +1,21 @@
 package simstation;
 
-import mvc.Utilities;
-
+import mvc.*;
 import java.io.Serializable;
-
 import static mvc.Utilities.rng;
+
+/*
+Susan Peck, Evalynna Ong, Jiajun Zheng
+SimStation Group 1 CS151 Spring 2025
+ */
 
 public abstract class Agent implements Runnable, Serializable {
     /*
-    An agent is an active object. It runs in its own thread (myThread).
+    An agent is an active object. An Agent has a location, a name, and
+    two boolean values to keep track of whether the agent is temporarily
+    paused or permanently stopped. It runs in its own thread (myThread).
+    The location of the agent is xc, yc in the World
      */
-
-    // which variables should be "protected" versus "private"?
-    // some of this is printing to a Console? copied from agentLab example, not needed?
-
-    // location of the agent is xc, yc in the World
     protected int xc;
     protected int yc;
     protected String agentName;
@@ -22,28 +23,22 @@ public abstract class Agent implements Runnable, Serializable {
     private Boolean stopped;
     public static int sleepTime = 200;
 
-    // what is a thread again? do we need something with synchronized?
-
     /*
     Threads are not serializable, so the myThread field in the Agent class needs to be declared transient:
      */
-
     transient protected Thread myThread;
-    protected World world; // is the World the "manager"?, yes i think so
+    protected World world; // The world manages the agents
 
-    // agent default constructor
+    // agent default constructor, agent is not pause or stopped
     public Agent(String name){
-
         agentName = name;
         paused = false;
         stopped = false;
         myThread = null;
-
     }
 
     public void setWorld(World inputWorld){
         world = inputWorld;
-
         xc = rng.nextInt(world.getSize());
         yc = rng.nextInt(world.getSize());
     }
@@ -54,39 +49,36 @@ public abstract class Agent implements Runnable, Serializable {
 
     public synchronized String toString(){
         String result = agentName;
-        if(stopped) {
-            result += " (stopped)";
-        }
-        else if(paused){
-            result += " (paused)";
-        }
-        else{
-            result += " (running)";
-        }
+        if(stopped) { result += " (stopped)";}
+        else if(paused){ result += " (paused)";}
+        else{ result += " (running)";}
         return result;
     }
 
+    /**
+     * Returns the value of xc, the x location of the agent in the
+     * world.
+     * @return xc integer value between 0 and world SIZE
+     */
     public int getXc(){
-        // should be between 0 and world SIZE
-        // if beyond the border, wraps around
         return xc;
     }
+    /**
+     * Returns the value of yc, the y location of the agent in the
+     * world.
+     * @return xc integer value between 0 and world SIZE
+     */
     public int getYc(){
-        // should be between 0 and world SIZE
-        // if beyond the border, wraps around
         return yc;
     }
 
-    // start() is in the UML diagram but also part of thread? confused
     public synchronized void start(){
         if(myThread == null) {
             myThread = new Thread(this);
             myThread.start();
-            //System.out.println(getAgentName() + "thread started.");
         }
         paused = false;
         stopped = false;
-
     }
 
     //thread stuff:
@@ -97,16 +89,19 @@ public abstract class Agent implements Runnable, Serializable {
         return stopped;
     }
     public synchronized void resume(){
-        //what needs to go in here? see: https://www.cs.sjsu.edu/faculty/pearce/modules/lectures/ood4/threads/agentLab/src/Agent.java
         notify();
     }
+
+    /**
+     * Sets the value of paused for an agent to be TRUE.
+     * Agents will be unpaused when notify() is called in resume()
+     */
     public synchronized void pause(){
         paused = true;
     }
     public synchronized boolean isPaused(){
         return paused;
     }
-
 
     // wait for notification if not stopped and yes paused
     private synchronized void checkPaused(){
@@ -150,6 +145,4 @@ public abstract class Agent implements Runnable, Serializable {
             }
         }
     }
-
-
 }
