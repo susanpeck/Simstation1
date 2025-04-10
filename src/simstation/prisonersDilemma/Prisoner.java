@@ -4,25 +4,49 @@ import mvc.Utilities;
 import simstation.MobileAgent;
 
 public class Prisoner extends MobileAgent { // should they be mobile or not?
-    private int fitness = 0;
-    private boolean partnerCheated = false;
+    protected int fitness = 0;
     protected Strategy strategy;
+    protected int stratID;
+    protected boolean partnerCheated = false;
 
     public Prisoner() {
         super();
-        int rand = Utilities.rng.nextInt(4);
+        stratID = Utilities.rng.nextInt(4);
 
         // randomly assign strategy to each prisoner
-        if (rand == 0) { strategy = new Cooperate(); }
-        else if (rand == 1) { strategy = new Cheat(); }
-        else if (rand == 2) { strategy = new RandomlyCooperate(); }
+        if (stratID == 0) { strategy = new Cooperate(); }
+        else if (stratID == 1) { strategy = new Cheat(); }
+        else if (stratID == 2) { strategy = new RandomlyCooperate(); }
         else { strategy = new Tit4Tat(); }
 
     }
 
-    public boolean cooperate() { // setter, based on set will return result maybe?
-        // to access one of the strategies...
+    public boolean cooperate() {
         return this.strategy.cooperate();
+    }
+
+
+    public void play(Prisoner p2) {
+        boolean p1move = this.cooperate();
+        boolean p2move = p2.cooperate();
+
+        if(p1move && p2move) { // both cooperate
+            this.updateFitness(3);
+            partnerCheated = false;
+        } else if (!p1move && p2move) { // cheat and partner cooperates
+            this.updateFitness(5);
+            partnerCheated = false;
+        } else if (p1move && !p2move) {
+            partnerCheated = true;
+        } else { // both cheat
+            this.updateFitness(1);
+            partnerCheated = true;
+        } // in case cooperates and partner cheats, no update to fitness
+
+    }
+
+    public void updateFitness(int amt) {
+        fitness = fitness + amt;
     }
 
     public void update() {
@@ -30,9 +54,12 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
         //play a game of prisoner's dilemma
     }
 
-    public void play(Prisoner p2) { // does play replace update?
-
+    public boolean isPartnerCheated() {
+        return partnerCheated;
     }
 
-    public void updateFitness(int amt) {fitness = fitness + amt;}
+    public int getStrategy() {
+        return stratID;
+    }
+
 }

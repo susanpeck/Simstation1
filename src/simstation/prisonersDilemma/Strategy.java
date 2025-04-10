@@ -1,5 +1,6 @@
 package simstation.prisonersDilemma;
 
-public interface  Strategy {
-    public boolean cooperate(); /
+public abstract class Strategy {
+    Prisoner prisoner;
+    public abstract boolean cooperate();
 }
