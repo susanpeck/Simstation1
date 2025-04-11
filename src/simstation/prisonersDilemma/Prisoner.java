@@ -4,13 +4,15 @@ import mvc.Utilities;
 import simstation.MobileAgent;
 
 public class Prisoner extends MobileAgent { // should they be mobile or not?
-    protected int fitness = 0;
+    protected int fitness;
     protected Strategy strategy;
     protected int stratID;
-    protected boolean partnerCheated = false;
+    protected boolean partnerCheated ;
 
     public Prisoner() {
         super();
+        this.fitness = 0;
+        this.partnerCheated = false;
         stratID = Utilities.rng.nextInt(4);
 
         // randomly assign strategy to each prisoner
@@ -49,10 +51,10 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
         fitness = fitness + amt;
     }
 
-    public void update() {
+    /*public void update() {
         //pick a random neighbor using getNeighbor from world i think
         //play a game of prisoner's dilemma
-    }
+    }*/
 
     public boolean isPartnerCheated() {
         return partnerCheated;
@@ -60,6 +62,10 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
 
     public int getStrategy() {
         return stratID;
+    }
+
+    public int getFitness() {
+        return fitness;
     }
 
 }
