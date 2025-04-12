@@ -13,9 +13,9 @@ public class FatalCommand extends Command {
 
     @Override
     public void execute() throws Exception {
-        if (!(model instanceof PlagueSim plauge)) {
+        if (!(model instanceof PlagueSim plague)) {
             throw new Exception("Model must be a World.");
         }
-        plauge.setFatal(!plauge.isFatal());
+        plague.setFatal(!plague.isFatal());
     }
 }

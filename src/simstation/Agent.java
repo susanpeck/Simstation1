@@ -134,9 +134,9 @@ public abstract class Agent implements Runnable, Serializable {
         //The run method repeatedly calls the abstract update method.
         myThread = Thread.currentThread();
         while(!isStopped()){
-            update(); // changing to update() from world.updateStatistics
+            // world.updateStatistics() commenting out for now
             try {
-                update();
+                update(); // what update method is this? any and all of them? for anything that extends agent?
                 Thread.sleep(sleepTime);
                 checkPaused();
             }

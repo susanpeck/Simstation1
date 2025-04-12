@@ -11,13 +11,13 @@ public class PlagueSim extends World {
     public int VIRULENCE = 50; // % chance of infection
     public int RESISTANCE = 2; // % chance of resisting infection
     public int INFECTED_PERCENTAGE = 5; // constant so should be uppercase
-    public int INFECTED = 0; // should this be lower case and updated
+    public int INFECTED = 0; // should this be lower case and updated ?
     public int POPULATION = 50; // ditto, every time Start is pressed agents are adding so population isn't a fixed
-    public int TIME = 200;
+    public int recoveryORFatalityTime = 200;
     private boolean isFatal = true;
 
     private int numInfected; // does this duplicate above INFECTED value? used in UpdateStatistics
-    private int percentInfected;
+    private int percentInfected; // number of infected Creatures divided by alive Creatures
 
     // think we need a constructor because extends World
     public PlagueSim(){
@@ -31,12 +31,12 @@ public class PlagueSim extends World {
             if (rand < INFECTED_PERCENTAGE) {
                 rand = Utilities.rng.nextInt(100);
                 if (rand > RESISTANCE) {
-                    addAgent(new Creature(TIME, isFatal, true));
+                    addAgent(new Creature(recoveryORFatalityTime, isFatal, true));
                     INFECTED++;
                 }
             }
             else {
-                addAgent(new Creature(TIME, isFatal, false));
+                addAgent(new Creature(recoveryORFatalityTime, isFatal, false));
             }
         }
     }
@@ -90,6 +90,7 @@ public class PlagueSim extends World {
 
     public void setINFECTED_PERCENTAGE(int INFECTED_PERCENTAGE) {
         this.INFECTED_PERCENTAGE = INFECTED_PERCENTAGE;
+        changed();
     }
 
     public void setINFECTED(int INFECTED) {
@@ -100,8 +101,9 @@ public class PlagueSim extends World {
         this.POPULATION = POPULATION;
     }
 
-    public void setTIME(int TIME) {
-        this.TIME = TIME;
+    public void setRecoveryORFatalityTime(int recoveryORFatalityTime) {
+        this.recoveryORFatalityTime = recoveryORFatalityTime;
+        changed();
     }
 
     public int getVIRULENCE() {
@@ -124,7 +126,7 @@ public class PlagueSim extends World {
         return POPULATION;
     }
 
-    public int getTIME() {
-        return TIME;
+    public int getRecoveryORFatalityTime() {
+        return recoveryORFatalityTime;
     }
 }

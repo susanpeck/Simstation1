@@ -1,8 +1,12 @@
 package plague;
 
-import mvc.*;
-import simstation.*;
+import mvc.AppFactory;
+import mvc.Model;
+import simstation.WorldPanel;
+
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 /*
@@ -13,7 +17,7 @@ SimStation Group 1 CS151 Spring 2025
 
 // there is a bug where pressing new doesn't update sliders
 
-public class PlaguePanel extends WorldPanel {
+public class PlaguePanel extends WorldPanel implements ChangeListener {
     private JLabel infectedLabel;
     private JLabel probabilityLabel;
     private JLabel populationLabel;
@@ -85,7 +89,7 @@ public class PlaguePanel extends WorldPanel {
 
         // Fatality/Recovery Time slider
         fatalityLabel = new JLabel("Fatality/Recovery Time:");
-        fatalityTimeSlider = new JSlider(0, 500, p.getTIME());
+        fatalityTimeSlider = new JSlider(0, 500, p.getRecoveryORFatalityTime());
         fatalityTimeSlider.setMajorTickSpacing(50);
         fatalityTimeSlider.setMinorTickSpacing(5);
         fatalityTimeSlider.setPaintTicks(true);
@@ -93,7 +97,7 @@ public class PlaguePanel extends WorldPanel {
         fatalityTimeSlider.setOpaque(true);
         fatalityTimeSlider.addChangeListener(e -> {
             if(!fatalityTimeSlider.getValueIsAdjusting()) {
-                p.setTIME(fatalityTimeSlider.getValue());
+                p.setRecoveryORFatalityTime(fatalityTimeSlider.getValue());
             }
         });
 
@@ -128,6 +132,35 @@ public class PlaguePanel extends WorldPanel {
         sliderPanel.add(notFatalButton);
 
         controlPanel.add(sliderPanel);
+
+        // two of the sliders should "listen" for changes
+        infectionProbabilitySlider.addChangeListener(this);
+        fatalityTimeSlider.addChangeListener(this);
+       /*
+        slider1.addChangeListener(e -> {
+            Tournament.numRebels = slider1.getValue();
+        });
+
+        slider2.addChangeListener(e -> {
+            Tournament.swerveTendency = slider2.getValue();
+        });
+        */
+    }
+
+    public void stateChanged(ChangeEvent e) {
+        if (e.getSource() == infectionProbabilitySlider) {
+            ((PlagueSim)model).INFECTED_PERCENTAGE = infectionProbabilitySlider.getValue();
+        }
+        if (e.getSource() == fatalityTimeSlider) {
+            ((PlagueSim)model).setRecoveryORFatalityTime(fatalityTimeSlider.getValue());
+        }
+        model.changed();
+    }
+
+    public void update() {
+        infectionProbabilitySlider.setValue(((PlagueSim)model).INFECTED_PERCENTAGE);
+        fatalityTimeSlider.setValue(((PlagueSim)model).recoveryORFatalityTime);
+        repaint();
     }
 
     @Override
@@ -140,7 +173,7 @@ public class PlaguePanel extends WorldPanel {
         initialInfectedSlider.setValue(p.getINFECTED_PERCENTAGE());
         infectionProbabilitySlider.setValue(p.getVIRULENCE());
         initialPopulationSlider.setValue(p.getPOPULATION());
-        fatalityTimeSlider.setValue(p.getTIME());
+        fatalityTimeSlider.setValue(p.getRecoveryORFatalityTime());
     }
 
     public static void main(String[] args) {

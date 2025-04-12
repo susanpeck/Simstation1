@@ -35,6 +35,7 @@ public class Creature extends MobileAgent {
         this.time = 0;
     }
 
+
     @Override
     // might be an issue with the move logic since a random agent would just freeze, might be something wrong with the heading
     // also noticed that sometimes agents would disappear so the wrap logic might need some fixing

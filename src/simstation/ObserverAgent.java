@@ -11,6 +11,7 @@ public class ObserverAgent extends Agent{
         super("ObserverAgent");
     }
 
+    @Override // do we need override? we have it in mobile agent
     public void update(){
         // this update method calls the world's updateStatistics method
         world.updateStatistics();

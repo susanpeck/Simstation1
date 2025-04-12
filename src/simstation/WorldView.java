@@ -27,13 +27,13 @@ public class WorldView extends View{
         Iterator<Agent> it = ((World)model).iterator();
         while(it.hasNext()) {
             Agent a = it.next();
-            drawAgent(a, (Graphics2D)gc);
+            if(!a.getAgentName().equals("ObserverAgent")){
+                drawAgent(a, (Graphics2D)gc);
+            }
         }
     }
 
     public void drawAgent(Agent a, Graphics2D gc) {
-        // marked off in Turtle Graphics for View accessing or changing things it shouldn't
-
         // draw a diameter 10 red filled oval at Agents a's location
         int xCoordinate = a.getXc();
         int yCoordinate = a.getYc();

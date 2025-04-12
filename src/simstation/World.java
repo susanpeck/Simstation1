@@ -25,6 +25,7 @@ public class World extends Model {
     public World() {
         agents = new ArrayList<Agent>();
         observer = new ObserverAgent();
+        agents.add(observer); // new code to try and fix statistics
         alive = 0;
         clock = 0;
     }
@@ -33,6 +34,7 @@ public class World extends Model {
     public World(ArrayList<Agent> newAgentArray, ObserverAgent newObserver, int time, int numAlive) {
         agents = newAgentArray;
         observer = newObserver;
+        agents.add(observer); // new code to try and fix statistics
         clock = time;
         alive = numAlive;
     }
