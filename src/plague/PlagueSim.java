@@ -60,10 +60,10 @@ public class PlagueSim extends World {
         int infectedCount = 0;
 
         for(Agent a : agents){
-            if( ((Creature)a).isInfected() ){
+            if( !(a instanceof ObserverAgent) && ((Creature)a).isInfected() ){
                 infectedCount++;
             }
-            else if( !((Creature)a).isDead() ){
+            else if( !(a instanceof ObserverAgent) && !((Creature)a).isDead() ){
                 aliveCount++;
             }
         }

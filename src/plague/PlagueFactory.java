@@ -21,13 +21,13 @@ public class PlagueFactory extends WorldFactory {
     public String getTitle() { return "Plague";}
 
     public String[] getEditCommands() {
-        return new String[] {"Start","Pause","Resume","Stop","Stats","Infection Probability:","Fatality/Recovery Time:"};
+        return new String[] {"Start","Pause","Resume","Stop","Stats","Infection Probability:","Fatality/Recovery Time:","Not Fatal"};
     }
 
     public String[] getHelp() {
         return new String[] {
                 "Start - adds more Creatures to the simulation",
-                "Pauses - temporarily pauses the Creaturs",
+                "Pauses - temporarily pauses the Creatures",
                 "Resume - starts the paused the Creatures",
                 "Stop - permanently stops the Creatures",
                 "Stats - show how many Creatures are alive and percent infected",

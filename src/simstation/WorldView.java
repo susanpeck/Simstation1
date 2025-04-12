@@ -27,7 +27,7 @@ public class WorldView extends View{
         Iterator<Agent> it = ((World)model).iterator();
         while(it.hasNext()) {
             Agent a = it.next();
-            if(!a.getAgentName().equals("ObserverAgent")){
+            if(!(a instanceof ObserverAgent)){
                 drawAgent(a, (Graphics2D)gc);
             }
         }

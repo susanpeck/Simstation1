@@ -25,7 +25,7 @@ public class World extends Model {
     public World() {
         agents = new ArrayList<Agent>();
         observer = new ObserverAgent();
-        agents.add(observer); // new code to try and fix statistics
+        addAgent(observer); // new code to try and fix statistics
         alive = 0;
         clock = 0;
     }
@@ -34,7 +34,7 @@ public class World extends Model {
     public World(ArrayList<Agent> newAgentArray, ObserverAgent newObserver, int time, int numAlive) {
         agents = newAgentArray;
         observer = newObserver;
-        agents.add(observer); // new code to try and fix statistics
+        addAgent(observer); // new code to try and fix statistics
         clock = time;
         alive = numAlive;
     }
@@ -98,6 +98,11 @@ public class World extends Model {
     public Agent getNeighbor(Agent caller, int radius){
         int randomLocation = Utilities.rng.nextInt(agents.size() - 1);
         Agent neighbor = agents.get(randomLocation);
+
+        if(neighbor instanceof ObserverAgent){
+            randomLocation = Utilities.rng.nextInt(agents.size() - 1);
+            neighbor = agents.get(randomLocation);
+        }
 
         // number of steps from caller agent to random agent in list
         int distance = Math.abs(caller.getXc() - neighbor.getXc()) + Math.abs(caller.getYc() - neighbor.getYc());
