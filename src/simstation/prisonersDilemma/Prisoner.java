@@ -16,10 +16,12 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
         stratID = Utilities.rng.nextInt(4);
 
         // randomly assign strategy to each prisoner
-        if (stratID == 0) { strategy = new Cooperate(); }
-        else if (stratID == 1) { strategy = new Cheat(); }
-        else if (stratID == 2) { strategy = new RandomlyCooperate(); }
-        else { strategy = new Tit4Tat(); }
+        if (stratID == 0) { this.strategy = new Cooperate(); }
+        else if (stratID == 1) { this.strategy = new Cheat(); }
+        else if (stratID == 2) { this.strategy = new RandomlyCooperate(); }
+        else { this.strategy = new Tit4Tat(); }
+
+        this.strategy.setPrisoner(this);
 
     }
 
