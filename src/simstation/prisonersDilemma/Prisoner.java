@@ -51,10 +51,17 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
         fitness = fitness + amt;
     }
 
-    /*public void update() {
+    @Override
+    public void update() {
         //pick a random neighbor using getNeighbor from world i think
         //play a game of prisoner's dilemma
-    }*/
+
+        Prisoner opponent = (Prisoner) world.getNeighbor(this, 100);
+        if (opponent != null) {
+            play(opponent);
+        }
+        move(5);
+    }
 
     public boolean isPartnerCheated() {
         return partnerCheated;
