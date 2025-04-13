@@ -37,17 +37,19 @@ public class Tournament extends World {
 
         // place prisoners into separate arrays for calculating avg fitness
         for (Agent a : getAgents()) {
-            Prisoner p = (Prisoner) a;
-            int strat = p.getStrategy();
+            if(a.getAgentName() == "Mobile Agent") { // check type first
+                Prisoner p = (Prisoner) a;
+                int strat = p.getStrategy();
 
-            if(strat == 0) {
-                coopCount.add(p);
-            } else if (strat == 1) {
-                cheatCount.add(p);
-            } else if (strat == 2) {
-                randCount.add(p);
-            } else {
-                t4tCount.add(p);
+                if(strat == 0) {
+                    coopCount.add(p);
+                } else if (strat == 1) {
+                    cheatCount.add(p);
+                } else if (strat == 2) {
+                    randCount.add(p);
+                } else {
+                    t4tCount.add(p);
+                }
             }
         }
     }
@@ -78,7 +80,7 @@ public class Tournament extends World {
         for(Prisoner p : coopCount) {
             coopFitnessHelper += p.getFitness();
         }
-        coopFitness = coopFitness / coopCount.size();
+        coopFitness = coopFitnessHelper / coopCount.size();
 
         int randFitnessHelper = 0;
         for(Prisoner p : randCount) {
