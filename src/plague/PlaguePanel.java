@@ -47,7 +47,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
 
         // Initial % Infected slider
         infectedLabel = new JLabel("Initial % Infected:");
-        initialInfectedSlider = new JSlider(0, 100, p.getINFECTED_PERCENTAGE());
+        initialInfectedSlider = new JSlider(0, 100, p.getInfectedPercent());
         initialInfectedSlider.setMajorTickSpacing(10);
         initialInfectedSlider.setMinorTickSpacing(2);
         initialInfectedSlider.setPaintTicks(true);
@@ -55,7 +55,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
         initialInfectedSlider.setOpaque(true);
         initialInfectedSlider.addChangeListener(e -> {
             if(!initialInfectedSlider.getValueIsAdjusting()) {
-                p.setINFECTED_PERCENTAGE(initialInfectedSlider.getValue());
+                p.setInfectedPercent(initialInfectedSlider.getValue());
             }
         });
 
@@ -75,7 +75,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
 
         // Initial Population Size slider
         populationLabel = new JLabel("Initial Population Size:");
-        initialPopulationSlider = new JSlider(0, 200, p.getPOPULATION());
+        initialPopulationSlider = new JSlider(0, 200, p.getPopulation());
         initialPopulationSlider.setMajorTickSpacing(20);
         initialPopulationSlider.setMinorTickSpacing(2);
         initialPopulationSlider.setPaintTicks(true);
@@ -83,7 +83,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
         initialPopulationSlider.setOpaque(true);
         initialPopulationSlider.addChangeListener(e -> {
             if(!initialPopulationSlider.getValueIsAdjusting()) {
-                p.setPOPULATION(initialPopulationSlider.getValue());
+                p.setPopulation(initialPopulationSlider.getValue());
             }
         });
 
@@ -149,7 +149,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
 
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == infectionProbabilitySlider) {
-            ((PlagueSim)model).INFECTED_PERCENTAGE = infectionProbabilitySlider.getValue();
+            ((PlagueSim)model).infectedPercent = infectionProbabilitySlider.getValue();
         }
         if (e.getSource() == fatalityTimeSlider) {
             ((PlagueSim)model).setRecoveryORFatalityTime(fatalityTimeSlider.getValue());
@@ -158,7 +158,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
     }
 
     public void update() {
-        infectionProbabilitySlider.setValue(((PlagueSim)model).INFECTED_PERCENTAGE);
+        infectionProbabilitySlider.setValue(((PlagueSim)model).infectedPercent);
         fatalityTimeSlider.setValue(((PlagueSim)model).recoveryORFatalityTime);
         repaint();
     }
@@ -170,9 +170,9 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
             throw new IllegalArgumentException("Model must be a PlagueSim.");
         }
         p = (PlagueSim) newModel;
-        initialInfectedSlider.setValue(p.getINFECTED_PERCENTAGE());
+        initialInfectedSlider.setValue(p.getInfectedPercent());
         infectionProbabilitySlider.setValue(p.getVIRULENCE());
-        initialPopulationSlider.setValue(p.getPOPULATION());
+        initialPopulationSlider.setValue(p.getPopulation());
         fatalityTimeSlider.setValue(p.getRecoveryORFatalityTime());
     }
 

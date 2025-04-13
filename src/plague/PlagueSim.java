@@ -8,35 +8,34 @@ SimStation Group 1 CS151 Spring 2025
  */
 
 public class PlagueSim extends World {
-    public int VIRULENCE = 50; // % chance of infection
-    public int RESISTANCE = 2; // % chance of resisting infection
-    public int INFECTED_PERCENTAGE = 5; // constant so should be uppercase
-    public int INFECTED = 0; // should this be lower case and updated ?
-    public int POPULATION = 50; // ditto, every time Start is pressed agents are adding so population isn't a fixed
-    public int recoveryORFatalityTime = 200;
-    private boolean isFatal = true;
-
-    private int numInfected; // does this duplicate above INFECTED value? used in UpdateStatistics
-    private int percentInfected; // number of infected Creatures divided by alive Creatures
+    public int VIRULENCE = 50; // % chance of dying from infection
+    public int RESISTANCE = 2; // % chance of resisting infection (not getting infected from neighbor?)
+    public int infectedPercent = 5; // the % of infected Creatures when Start is pressed
+    public double INFECTED = 0; // the number of infected Creatures
+    public double numAlive = 0; //keep track of the Creatures that remain alive
+    public int population = 50; // add this many new Creatures to the View when Start is pressed
+    public int recoveryORFatalityTime = 200; // the time it takes for a Creature to die or recovery
+    private boolean isFatal = true; // true when an infected Creature will eventually die, false if the Creature will recover
+    private double percentInfected; // number of infected Creatures divided by alive Creatures
 
     // think we need a constructor because extends World
     public PlagueSim(){
         super();
-        // what should be initialized here?
     }
 
     public void populate() {
-        for(int i = 0; i < POPULATION; i++) {
+        numAlive = numAlive + population; //the number of Creatures alive are the previous ones plus the new population
+        for(int i = 0; i < population; i++) {
             int rand = Utilities.rng.nextInt(100);
-            if (rand < INFECTED_PERCENTAGE) {
+            if (rand < infectedPercent) { // selected as a new infected Creature
                 rand = Utilities.rng.nextInt(100);
-                if (rand > RESISTANCE) {
-                    addAgent(new Creature(recoveryORFatalityTime, isFatal, true));
-                    INFECTED++;
+                if (rand > RESISTANCE) { // the Creature does not resist the infection
+                    addAgent(new Creature(recoveryORFatalityTime, isFatal, true)); // add an infected Creature
+                    INFECTED++; // keep track of how many infected creatures total when Start is pressed
                 }
             }
             else {
-                addAgent(new Creature(recoveryORFatalityTime, isFatal, false));
+                addAgent(new Creature(recoveryORFatalityTime, isFatal, false)); // add a non-infected Creature
             }
         }
     }
@@ -48,7 +47,7 @@ public class PlagueSim extends World {
      */
     @Override
     public String getStatus() {
-        return "#agents = " + alive + "\n" + "#clock = " + clock + "\n" + "% INFECTED = " + percentInfected;
+        return "Number of Creatures Alive: " + (int)numAlive + "\n" + "Clock: " + clock + "\n" + "Percent Infected Creatures: " + String.format("%.2f", percentInfected) +"%";
     }
 
     @Override
@@ -56,24 +55,30 @@ public class PlagueSim extends World {
         // increment the clock
         clock++;
         // recount the number of alive and infected agents
-        int aliveCount = 0;
-        int infectedCount = 0;
-
-        for(Agent a : agents){
-            if( !(a instanceof ObserverAgent) && ((Creature)a).isInfected() ){
-                infectedCount++;
-            }
-            else if( !(a instanceof ObserverAgent) && !((Creature)a).isDead() ){
-                aliveCount++;
-            }
+//        int aliveCount = 0;
+//        int infectedCount = 0;
+//
+//        for(Agent a : agents){
+//            if( !(a instanceof ObserverAgent) && ((Creature)a).isInfected() ){
+//                infectedCount++;
+//            }
+//            else if( !(a instanceof ObserverAgent) && !((Creature)a).isDead() ){
+//                aliveCount++;
+//            }
+//        }
+//        alive = aliveCount;
+//        INFECTED = infectedCount; // current total infected Creatures
+        if(numAlive == 0) {
+            percentInfected = 0;
         }
-        alive = aliveCount;
-        numInfected = infectedCount;
-        percentInfected = numInfected / alive / 100;
+        else {
+            percentInfected =  INFECTED / numAlive * 100;
+        }
     }
 
     public void setFatal(boolean fatal) {
         isFatal = fatal;
+        changed();
     }
 
     public boolean isFatal() {
@@ -82,23 +87,27 @@ public class PlagueSim extends World {
 
     public void setVIRULENCE(int VIRULENCE) {
         this.VIRULENCE = VIRULENCE;
+        changed();
     }
 
     public void setRESISTANCE(int RESISTANCE) {
         this.RESISTANCE = RESISTANCE;
-    }
-
-    public void setINFECTED_PERCENTAGE(int INFECTED_PERCENTAGE) {
-        this.INFECTED_PERCENTAGE = INFECTED_PERCENTAGE;
         changed();
     }
 
-    public void setINFECTED(int INFECTED) {
-        this.INFECTED = INFECTED;
+    public void setInfectedPercent(int infectedPercent) {
+        this.infectedPercent = infectedPercent;
+        changed();
     }
 
-    public void setPOPULATION(int POPULATION) {
-        this.POPULATION = POPULATION;
+    public void setINFECTED(double INFECTED) {
+        this.INFECTED = INFECTED;
+        changed();
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+        changed();
     }
 
     public void setRecoveryORFatalityTime(int recoveryORFatalityTime) {
@@ -114,16 +123,16 @@ public class PlagueSim extends World {
         return RESISTANCE;
     }
 
-    public int getINFECTED_PERCENTAGE() {
-        return INFECTED_PERCENTAGE;
+    public int getInfectedPercent() {
+        return infectedPercent;
     }
 
-    public int getINFECTED() {
+    public double getINFECTED() {
         return INFECTED;
     }
 
-    public int getPOPULATION() {
-        return POPULATION;
+    public int getPopulation() {
+        return population;
     }
 
     public int getRecoveryORFatalityTime() {

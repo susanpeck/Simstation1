@@ -24,7 +24,7 @@ public class InfectionProbabilityCommand extends Command {
             value = Integer.valueOf(response);
         }
 
-        plague.setINFECTED_PERCENTAGE(value);
+        plague.setInfectedPercent(value);
 
     }
 }

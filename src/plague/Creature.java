@@ -50,7 +50,7 @@ public class Creature extends MobileAgent {
                     rand = Utilities.rng.nextInt(100);
                     if (rand > plague.getRESISTANCE()) {
                         isInfected = true;
-                        plague.setINFECTED(plague.getINFECTED() + 1);
+                        plague.setINFECTED(plague.getINFECTED() + 1); //updates the number of infected
                         time = 0;
                         this.recoveryOrFatalityTime = c.getRecoveryOrFatalityTime();
                     }
@@ -67,7 +67,8 @@ public class Creature extends MobileAgent {
                 }
                 isInfected = false;
                 if (plague.getINFECTED() > 0) {
-                    plague.setINFECTED(plague.getINFECTED() - 1);
+                    plague.setINFECTED(plague.getINFECTED() - 1); // decreases the number of infected
+                    plague.numAlive = plague.numAlive - 1; // decrease the number of alive
                 }
                 time = 0;
             }

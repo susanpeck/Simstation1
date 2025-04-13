@@ -99,6 +99,7 @@ public class World extends Model {
         int randomLocation = Utilities.rng.nextInt(agents.size() - 1);
         Agent neighbor = agents.get(randomLocation);
 
+        // if the agent is the Observer, choose the next random agent in the list
         if(neighbor instanceof ObserverAgent){
             randomLocation = Utilities.rng.nextInt(agents.size() - 1);
             neighbor = agents.get(randomLocation);
