@@ -33,7 +33,8 @@ public abstract class Agent implements Runnable, Serializable {
     public Agent(String name){
         agentName = name;
         paused = false;
-        stopped = false;
+//        stopped = false;
+        stopped = true;
         myThread = null;
     }
 

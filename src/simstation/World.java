@@ -23,6 +23,7 @@ public class World extends Model {
 
     // default constructor
     public World() {
+        super();
         agents = new ArrayList<Agent>();
         observer = new ObserverAgent();
         addAgent(observer); // new code to try and fix statistics
@@ -100,7 +101,8 @@ public class World extends Model {
         Agent neighbor = agents.get(randomLocation);
 
         // if the agent is the Observer, choose the next random agent in the list
-        if(neighbor instanceof ObserverAgent){
+        // continue checking until not an observeragent
+        while(neighbor instanceof ObserverAgent){
             randomLocation = Utilities.rng.nextInt(agents.size() - 1);
             neighbor = agents.get(randomLocation);
         }

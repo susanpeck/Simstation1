@@ -25,7 +25,6 @@ public class Tournament extends World {
 
     public Tournament() {
         super();
-
         cheatCount = new ArrayList<>();
         coopCount = new ArrayList<>();
         randCount = new ArrayList<>();
@@ -34,6 +33,7 @@ public class Tournament extends World {
 
     public void populate() {
         for(int i = 0; i < population; i++) {
+            //System.out.println("populating agents");
             if(i < (population/4)) { // first quarter
                 addAgent(new Prisoner(0));
             } else if (i >= population/4 && i < population/2) { // second quarter
@@ -47,6 +47,7 @@ public class Tournament extends World {
 
         // place prisoners into separate arrays for calculating avg fitness
         for (Agent a : getAgents()) {
+            //System.out.println("Strategies being divided up");
             if(a.getAgentName() == "Mobile Agent") { // check type first
                 Prisoner p = (Prisoner) a;
                 int strat = p.getStrategy();
@@ -76,7 +77,7 @@ public class Tournament extends World {
     }
 
     @Override
-    public void updateStatistics() {
+    public void updateStatistics() { // updateStatistics being called prematurely on new
         clock++;
         alive = agents.size()-1; // do not count observer agent
 
@@ -85,6 +86,14 @@ public class Tournament extends World {
             cheatFitnessHelper += p.getFitness();
         }
         cheatFitness = cheatFitnessHelper / cheatCount.size();
+        /*try {
+            cheatFitness = cheatFitnessHelper / cheatCount.size();
+        } catch (ArithmeticException ex) {
+            System.out.print("no cheaters set");
+        } finally {
+            cheatFitness = cheatFitnessHelper;
+        }*/
+
 
         int coopFitnessHelper = 0;
         for(Prisoner p : coopCount) {
