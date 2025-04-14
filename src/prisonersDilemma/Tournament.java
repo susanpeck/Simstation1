@@ -8,7 +8,9 @@ import simstation.WorldPanel;
 import java.util.ArrayList;
 
 public class Tournament extends World {
-    public static int population = 20;
+    public static int population = 40;
+    // do with 10 each strategy
+    //
 
     // create arrays for different categories of strategies
     protected ArrayList<Prisoner> cheatCount;
@@ -32,7 +34,15 @@ public class Tournament extends World {
 
     public void populate() {
         for(int i = 0; i < population; i++) {
-            addAgent(new Prisoner()); //
+            if(i < (population/4)) { // first quarter
+                addAgent(new Prisoner(0));
+            } else if (i >= population/4 && i < population/2) { // second quarter
+                addAgent(new Prisoner(1));
+            } else if (i >= population/2 && i < (population/2 + population/4)) { // thir quarter
+                addAgent(new Prisoner(2));
+            } else {
+                addAgent(new Prisoner(3));
+            }
         }
 
         // place prisoners into separate arrays for calculating avg fitness
@@ -56,7 +66,7 @@ public class Tournament extends World {
 
     @Override
     public String getStatus() {
-        return "#prisoners = " + agents.size() + "\n" +
+        return "#prisoners = " + alive + "\n" +
                 "#clock = " + clock + "\n" +
                 "Average Fitness: \n" +
                 "Cooperate: " + coopFitness + "\n" +
@@ -68,7 +78,7 @@ public class Tournament extends World {
     @Override
     public void updateStatistics() {
         clock++;
-        alive = agents.size();
+        alive = agents.size()-1; // do not count observer agent
 
         int cheatFitnessHelper = 0;
         for(Prisoner p : cheatCount) {

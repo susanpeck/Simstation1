@@ -1,6 +1,5 @@
 package prisonersDilemma;
 
-import mvc.Utilities;
 import simstation.MobileAgent;
 
 public class Prisoner extends MobileAgent { // should they be mobile or not?
@@ -9,16 +8,17 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
     protected int stratID;
     protected boolean partnerCheated ;
 
-    public Prisoner() {
+    public Prisoner(int stratID) {
         super();
         this.fitness = 0;
         this.partnerCheated = false;
-        stratID = Utilities.rng.nextInt(4);
+        this.stratID = stratID;
 
-        // randomly assign strategy to each prisoner
-        if (stratID == 0) { this.strategy = new Cooperate(); }
-        else if (stratID == 1) { this.strategy = new Cheat(); }
-        else if (stratID == 2) { this.strategy = new RandomlyCooperate(); }
+        //stratID = Utilities.rng.nextInt(4);
+
+        if (this.stratID == 0) { this.strategy = new Cooperate(); }
+        else if (this.stratID == 1) { this.strategy = new Cheat(); }
+        else if (this.stratID == 2) { this.strategy = new RandomlyCooperate(); }
         else { this.strategy = new Tit4Tat(); }
 
         this.strategy.setPrisoner(this);
@@ -68,6 +68,15 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
     public boolean isPartnerCheated() {
         return partnerCheated;
     }
+
+    /*public void setStrategy(int setStratID) {
+        this.stratID = setStratID;
+
+        if (this.stratID == 0) { this.strategy = new Cooperate(); }
+        else if (this.stratID == 1) { this.strategy = new Cheat(); }
+        else if (this.stratID == 2) { this.strategy = new RandomlyCooperate(); }
+        else { this.strategy = new Tit4Tat(); }
+    }*/
 
     public int getStrategy() {
         return stratID;
