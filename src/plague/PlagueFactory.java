@@ -21,7 +21,7 @@ public class PlagueFactory extends WorldFactory {
     public String getTitle() { return "Plague";}
 
     public String[] getEditCommands() {
-        return new String[] {"Start","Pause","Resume","Stop","Stats","Infection Probability:","Fatality/Recovery Time:","Not Fatal"};
+        return new String[] {"Start","Pause","Resume","Stop","Stats","Initial % Infected","Infection Probability","Initial Population Size","Fatality/Recovery Time","Not Fatal"};
     }
 
     public String[] getHelp() {
@@ -42,20 +42,32 @@ public class PlagueFactory extends WorldFactory {
     public Command makeEditCommand(Model model, String type, Object source) {
         Command cmmd = super.makeEditCommand(model, type, source);
         if (cmmd == null) {
-            if (type.equals("Infection Probability:")) {
-                cmmd = new InfectionProbabilityCommand(model);
-                if (source instanceof JSlider) {
-                    ((InfectionProbabilityCommand)cmmd).value = ((JSlider)source).getValue();
+            switch (type) {
+                case "Initial % Infected" -> {
+                    cmmd = new InitialInfectedCommand(model);
+                    if (source instanceof JSlider) {
+                        ((InitialInfectedCommand) cmmd).value = ((JSlider) source).getValue();
+                    }
                 }
-            }
-            else if (type.equals("Fatality/Recovery Time:")) {
-                cmmd = new FatalityRecoveryTimeCommand(model);
-                if (source instanceof JSlider) {
-                    ((FatalityRecoveryTimeCommand)cmmd).value = ((JSlider)source).getValue();
+                case "Infection Probability" -> {
+                    cmmd = new InfectionProbabilityCommand(model);
+                    if (source instanceof JSlider) {
+                        ((InfectionProbabilityCommand) cmmd).value = ((JSlider) source).getValue();
+                    }
                 }
-            }
-            else if(type.equals("Not Fatal")){
-                cmmd = new FatalCommand(model);
+                case "Initial Population Size" -> {
+                    cmmd = new PopulationSizeCommand(model);
+                    if (source instanceof JSlider) {
+                        ((PopulationSizeCommand) cmmd).value = ((JSlider) source).getValue();
+                    }
+                }
+                case "Fatality/Recovery Time" -> {
+                    cmmd = new FatalityRecoveryTimeCommand(model);
+                    if (source instanceof JSlider) {
+                        ((FatalityRecoveryTimeCommand) cmmd).value = ((JSlider) source).getValue();
+                    }
+                }
+                case "Not Fatal" -> cmmd = new FatalCommand(model);
             }
         }
         return cmmd;
