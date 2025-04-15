@@ -30,6 +30,12 @@ public class FatalityRecoveryTimeCommand extends Command {
                 value = Integer.valueOf(response);
             }
         }
+        if (value < 0) {
+            value = 0;
+        }
+        else if (value > 500) {
+            value = 500;
+        }
         plague.setRecoveryORFatalityTime(value);
     }
 }

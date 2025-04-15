@@ -23,8 +23,13 @@ public class InfectionProbabilityCommand extends Command {
             String response = Utilities.ask("What should the infection probability be?");
             value = Integer.valueOf(response);
         }
-
-        plague.setInfectedPercent(value);
+        if (value < 0) {
+            value = 0;
+        }
+        else if (value > 100) {
+            value = 100;
+        }
+        plague.setVIRULENCE(value);
 
     }
 }
