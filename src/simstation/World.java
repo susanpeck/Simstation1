@@ -15,7 +15,7 @@ public class World extends Model {
     start, stop, pause, and resume methods of its agents.
      */
 
-    private static final int SIZE = 500;
+    protected static final int SIZE = 500;
     protected int alive;
     protected int clock;
     protected ArrayList<Agent> agents;
