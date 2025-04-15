@@ -8,6 +8,10 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
     protected int stratID;
     protected boolean partnerCheated ;
 
+    static {
+        sleepTime = 50;
+    }
+
     public Prisoner(int stratID) {
         super();
         this.fitness = 0;
