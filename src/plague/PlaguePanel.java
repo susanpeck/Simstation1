@@ -17,7 +17,7 @@ SimStation Group 1 CS151 Spring 2025
 
 // there is a bug where pressing new doesn't update sliders
 
-public class PlaguePanel extends WorldPanel implements ChangeListener {
+public class PlaguePanel extends WorldPanel {
     private JLabel infectedLabel;
     private JLabel probabilityLabel;
     private JLabel populationLabel;
@@ -133,9 +133,11 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
 
         controlPanel.add(sliderPanel);
 
+        // this isn't really necessary since we already implemented change listeners earlier for each slider
+
         // two of the sliders should "listen" for changes
-        infectionProbabilitySlider.addChangeListener(this);
-        fatalityTimeSlider.addChangeListener(this);
+//        infectionProbabilitySlider.addChangeListener(this);
+//        fatalityTimeSlider.addChangeListener(this);
        /*
         slider1.addChangeListener(e -> {
             Tournament.numRebels = slider1.getValue();
@@ -147,19 +149,21 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
         */
     }
 
-    public void stateChanged(ChangeEvent e) {
-        if (e.getSource() == infectionProbabilitySlider) {
-            ((PlagueSim)model).infectedPercent = infectionProbabilitySlider.getValue();
-        }
-        if (e.getSource() == fatalityTimeSlider) {
-            ((PlagueSim)model).setRecoveryORFatalityTime(fatalityTimeSlider.getValue());
-        }
-        model.changed();
-    }
+//    public void stateChanged(ChangeEvent e) {
+//        if (e.getSource() == infectionProbabilitySlider) {
+//            ((PlagueSim)model).VIRULENCE = infectionProbabilitySlider.getValue();
+//        }
+//        if (e.getSource() == fatalityTimeSlider) {
+//            ((PlagueSim)model).setRecoveryORFatalityTime(fatalityTimeSlider.getValue());
+//        }
+//        model.changed();
+//    }
 
     public void update() {
-        infectionProbabilitySlider.setValue(((PlagueSim)model).infectedPercent);
-        fatalityTimeSlider.setValue(((PlagueSim)model).recoveryORFatalityTime);
+        initialInfectedSlider.setValue(p.getInfectedPercent());
+        infectionProbabilitySlider.setValue(p.getVIRULENCE());
+        initialPopulationSlider.setValue(p.getPopulation());
+        fatalityTimeSlider.setValue(p.getRecoveryORFatalityTime());
         repaint();
     }
 
