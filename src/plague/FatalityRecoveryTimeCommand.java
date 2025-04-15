@@ -17,7 +17,7 @@ public class FatalityRecoveryTimeCommand extends Command {
     public void execute() throws Exception {
 
         if (!(model instanceof PlagueSim plague)) {
-            throw new Exception("Model must be a World.");
+            throw new Exception("Model must be a PlagueSim.");
         }
 
         if(value == null){
