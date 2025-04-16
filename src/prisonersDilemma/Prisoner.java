@@ -1,5 +1,7 @@
 package prisonersDilemma;
 
+import mvc.Utilities;
+import simstation.Heading;
 import simstation.MobileAgent;
 
 public class Prisoner extends MobileAgent { // should they be mobile or not?
@@ -9,7 +11,7 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
     protected boolean partnerCheated ;
 
     static {
-        sleepTime = 50;
+        sleepTime = 150;
     }
 
     public Prisoner(int stratID) {
@@ -66,7 +68,10 @@ public class Prisoner extends MobileAgent { // should they be mobile or not?
         if (opponent != null) {
             play(opponent);
         }
-        move(5);
+        heading = Heading.random();
+        int steps = Utilities.rng.nextInt(75) + 1;
+        move(steps);
+        //move(5);
     }
 
     public boolean isPartnerCheated() {

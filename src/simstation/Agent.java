@@ -33,8 +33,7 @@ public abstract class Agent implements Runnable, Serializable {
     public Agent(String name){
         agentName = name;
         paused = false;
-//        stopped = false;
-        stopped = true;
+        stopped = false;
         myThread = null;
     }
 
@@ -72,16 +71,6 @@ public abstract class Agent implements Runnable, Serializable {
     public int getYc(){
         return yc;
     }
-
-    public synchronized void start(){
-        if(myThread == null) {
-            myThread = new Thread(this);
-            myThread.start();
-        }
-        paused = false;
-        stopped = false;
-    }
-
     //thread stuff:
     public synchronized void stop(){
         stopped = true;
@@ -135,7 +124,6 @@ public abstract class Agent implements Runnable, Serializable {
         //The run method repeatedly calls the abstract update method.
         myThread = Thread.currentThread();
         while(!isStopped()){
-            // world.updateStatistics() commenting out for now should be in Observer update() method
             try {
                 update();
                 Thread.sleep(sleepTime);

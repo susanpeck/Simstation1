@@ -54,20 +54,6 @@ public class PlagueSim extends World {
     public void updateStatistics(){
         // increment the clock
         clock++;
-        // recount the number of alive and infected agents
-//        int aliveCount = 0;
-//        int infectedCount = 0;
-//
-//        for(Agent a : agents){
-//            if( !(a instanceof ObserverAgent) && ((Creature)a).isInfected() ){
-//                infectedCount++;
-//            }
-//            else if( !(a instanceof ObserverAgent) && !((Creature)a).isDead() ){
-//                aliveCount++;
-//            }
-//        }
-//        alive = aliveCount;
-//        INFECTED = infectedCount; // current total infected Creatures
         if(numAlive == 0) {
             percentInfected = 0;
         }

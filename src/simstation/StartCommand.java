@@ -21,7 +21,7 @@ public class StartCommand extends Command {
 
         try {
             // call the method in the model
-            worldModel.startAgents();
+            worldModel.start();
         }
 
         // catch and throw exceptions to the AppPanel

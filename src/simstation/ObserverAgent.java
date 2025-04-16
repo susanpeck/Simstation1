@@ -11,6 +11,11 @@ public class ObserverAgent extends Agent{
         super("Observer Agent");
     }
 
+    public ObserverAgent(World w){
+        super("Observer Agent");
+        setWorld(w);
+    }
+
     @Override
     public void update(){
         // this update method calls the world's updateStatistics method

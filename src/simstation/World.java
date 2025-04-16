@@ -26,7 +26,7 @@ public class World extends Model {
         super();
         agents = new ArrayList<Agent>();
         observer = new ObserverAgent();
-        addAgent(observer); // new code to try and fix statistics
+        observer.setWorld(this);
         alive = 0;
         clock = 0;
     }
@@ -35,7 +35,6 @@ public class World extends Model {
     public World(ArrayList<Agent> newAgentArray, ObserverAgent newObserver, int time, int numAlive) {
         agents = newAgentArray;
         observer = newObserver;
-        addAgent(observer); // new code to try and fix statistics
         clock = time;
         alive = numAlive;
     }
@@ -52,10 +51,19 @@ public class World extends Model {
         return agents;
     }
 
-    public void startAgents(){
+    public void start() {
+        agents = new ArrayList<>();
         populate();
+        Thread t = new Thread(observer);
+        t.start();
+        startAgents();
+        clock = 0;
+    }
+
+    public void startAgents(){
         for(Agent a : agents){
-            a.start();
+            Thread t = new Thread(a);
+            t.start();
         }
     }
 
@@ -63,18 +71,21 @@ public class World extends Model {
         for(Agent a : agents){
             a.stop();
         }
+        observer.stop();
     }
 
     public void pauseAgents(){
         for(Agent a : agents){
             a.pause();
         }
+        observer.pause();
     }
 
     public void resumeAgents(){
         for(Agent a : agents){
             a.resume();
         }
+        observer.resume();
     }
 
     public void populate(){
@@ -102,8 +113,8 @@ public class World extends Model {
 
         // if the agent is the Observer, choose the next random agent in the list
         // continue checking until not an observeragent
-        while(neighbor instanceof ObserverAgent){
-            randomLocation = Utilities.rng.nextInt(agents.size() - 1);
+        while(neighbor instanceof ObserverAgent || neighbor.equals(caller)){
+            randomLocation = (randomLocation + 1) % agents.size(); // = Utilities.rng.nextInt(agents.size() - 1);
             neighbor = agents.get(randomLocation);
         }
 
