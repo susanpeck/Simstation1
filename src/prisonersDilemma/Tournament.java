@@ -85,33 +85,25 @@ public class Tournament extends World {
         for(Prisoner p : cheatCount) {
             cheatFitnessHelper += p.getFitness();
         }
-        cheatFitness = cheatFitnessHelper / cheatCount.size();
-        /*try {
-            cheatFitness = cheatFitnessHelper / cheatCount.size();
-        } catch (ArithmeticException ex) {
-            System.out.print("no cheaters set");
-        } finally {
-            cheatFitness = cheatFitnessHelper;
-        }*/
-
+        cheatFitness = cheatFitnessHelper / (population/4);
 
         int coopFitnessHelper = 0;
         for(Prisoner p : coopCount) {
             coopFitnessHelper += p.getFitness();
         }
-        coopFitness = coopFitnessHelper / coopCount.size();
+        coopFitness = coopFitnessHelper / (population/4);
 
         int randFitnessHelper = 0;
         for(Prisoner p : randCount) {
             randFitnessHelper += p.getFitness();
         }
-        randFitness = randFitnessHelper / randCount.size();
+        randFitness = randFitnessHelper / (population/4);
 
         int t4tFitnessHelper = 0;
         for(Prisoner p : t4tCount) {
             t4tFitnessHelper += p.getFitness();
         }
-        t4tFitness = t4tFitnessHelper / t4tCount.size();
+        t4tFitness = t4tFitnessHelper / (population/4);
     }
 
 

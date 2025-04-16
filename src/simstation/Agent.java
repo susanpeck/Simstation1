@@ -137,7 +137,8 @@ public abstract class Agent implements Runnable, Serializable {
         while(!isStopped()){
             // world.updateStatistics() commenting out for now should be in Observer update() method
             try {
-                update();
+                //System.out.println("run being called"); check good, run is being called
+                this.update(); // for some reason this is not resulting in observer and mobile's update being called
                 Thread.sleep(sleepTime);
                 checkPaused();
             }
