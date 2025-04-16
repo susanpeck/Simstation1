@@ -79,7 +79,7 @@ public class Tournament extends World {
     @Override
     public void updateStatistics() { // updateStatistics being called prematurely on new
         clock++;
-        alive = agents.size()-1; // do not count observer agent
+        alive = agents.size();
 
         int cheatFitnessHelper = 0;
         for(Prisoner p : cheatCount) {
