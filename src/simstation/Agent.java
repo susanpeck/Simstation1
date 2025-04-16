@@ -125,7 +125,8 @@ public abstract class Agent implements Runnable, Serializable {
         myThread = Thread.currentThread();
         while(!isStopped()){
             try {
-                update();
+                //System.out.println("run being called"); check good, run is being called
+                this.update(); // for some reason this is not resulting in observer and mobile's update being called
                 Thread.sleep(sleepTime);
                 checkPaused();
             }
