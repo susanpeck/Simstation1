@@ -111,13 +111,6 @@ public class World extends Model {
         int randomLocation = Utilities.rng.nextInt(agents.size() - 1);
         Agent neighbor = agents.get(randomLocation);
 
-        // if the agent is the Observer, choose the next random agent in the list
-        // continue checking until not an observeragent
-        while(neighbor instanceof ObserverAgent || neighbor.equals(caller)){
-            randomLocation = (randomLocation + 1) % agents.size(); // = Utilities.rng.nextInt(agents.size() - 1);
-            neighbor = agents.get(randomLocation);
-        }
-
         // number of steps from caller agent to random agent in list
         int distance = Math.abs(caller.getXc() - neighbor.getXc()) + Math.abs(caller.getYc() - neighbor.getYc());
 

@@ -54,7 +54,7 @@ public class PlaguePanel extends WorldPanel {
         initialInfectedSlider.setPaintLabels(true);
         initialInfectedSlider.setOpaque(true);
         initialInfectedSlider.addChangeListener(e -> {
-            if(!initialInfectedSlider.getValueIsAdjusting()) {
+            if (!initialInfectedSlider.getValueIsAdjusting()) {
                 p.setInfectedPercent(initialInfectedSlider.getValue());
             }
         });
@@ -68,7 +68,7 @@ public class PlaguePanel extends WorldPanel {
         infectionProbabilitySlider.setPaintLabels(true);
         infectionProbabilitySlider.setOpaque(true);
         infectionProbabilitySlider.addChangeListener(e -> {
-            if(!infectionProbabilitySlider.getValueIsAdjusting()) {
+            if (!infectionProbabilitySlider.getValueIsAdjusting()) {
                 p.setVIRULENCE(infectionProbabilitySlider.getValue());
             }
         });
@@ -82,7 +82,7 @@ public class PlaguePanel extends WorldPanel {
         initialPopulationSlider.setPaintLabels(true);
         initialPopulationSlider.setOpaque(true);
         initialPopulationSlider.addChangeListener(e -> {
-            if(!initialPopulationSlider.getValueIsAdjusting()) {
+            if (!initialPopulationSlider.getValueIsAdjusting()) {
                 p.setPopulation(initialPopulationSlider.getValue());
             }
         });
@@ -96,7 +96,7 @@ public class PlaguePanel extends WorldPanel {
         fatalityTimeSlider.setPaintLabels(true);
         fatalityTimeSlider.setOpaque(true);
         fatalityTimeSlider.addChangeListener(e -> {
-            if(!fatalityTimeSlider.getValueIsAdjusting()) {
+            if (!fatalityTimeSlider.getValueIsAdjusting()) {
                 p.setRecoveryORFatalityTime(fatalityTimeSlider.getValue());
             }
         });
@@ -132,32 +132,7 @@ public class PlaguePanel extends WorldPanel {
         sliderPanel.add(notFatalButton);
 
         controlPanel.add(sliderPanel);
-
-        // this isn't really necessary since we already implemented change listeners earlier for each slider
-
-        // two of the sliders should "listen" for changes
-//        infectionProbabilitySlider.addChangeListener(this);
-//        fatalityTimeSlider.addChangeListener(this);
-       /*
-        slider1.addChangeListener(e -> {
-            Tournament.numRebels = slider1.getValue();
-        });
-
-        slider2.addChangeListener(e -> {
-            Tournament.swerveTendency = slider2.getValue();
-        });
-        */
     }
-
-//    public void stateChanged(ChangeEvent e) {
-//        if (e.getSource() == infectionProbabilitySlider) {
-//            ((PlagueSim)model).VIRULENCE = infectionProbabilitySlider.getValue();
-//        }
-//        if (e.getSource() == fatalityTimeSlider) {
-//            ((PlagueSim)model).setRecoveryORFatalityTime(fatalityTimeSlider.getValue());
-//        }
-//        model.changed();
-//    }
 
     public void update() {
         initialInfectedSlider.setValue(p.getInfectedPercent());

@@ -3,7 +3,10 @@ package plague;
 import mvc.Command;
 import mvc.Model;
 import mvc.Utilities;
-
+/*
+Susan Peck, Evalynna Ong, Jiajun Zheng
+SimStation Group 1 CS151 Spring 2025
+ */
 public class InitialInfectedCommand extends Command {
     Integer value = null;
 

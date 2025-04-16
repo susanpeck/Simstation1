@@ -18,7 +18,6 @@ public class PlagueSim extends World {
     private boolean isFatal = true; // true when an infected Creature will eventually die, false if the Creature will recover
     private double percentInfected; // number of infected Creatures divided by alive Creatures
 
-    // think we need a constructor because extends World
     public PlagueSim(){
         super();
     }
